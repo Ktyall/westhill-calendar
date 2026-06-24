@@ -151,6 +151,16 @@
 
   .print-foot{display:none;}
 
+  .statusline{font-size:12px;color:var(--muted);margin:-14px 0 22px;}
+  .statusline b{color:var(--navy);}
+  .banner{
+    display:flex;flex-wrap:wrap;align-items:center;gap:12px;
+    background:var(--gold-soft);border:1px solid var(--gold);border-radius:10px;
+    padding:12px 16px;margin-bottom:20px;font-size:13px;color:var(--navy);font-weight:600;
+  }
+  .banner .sub{font-weight:500;color:var(--muted);}
+  @media print{ .statusline,.banner{display:none !important;} }
+
   /* ---------- Print ---------- */
   @media print{
     @page{margin:12mm;}
@@ -190,10 +200,21 @@
   </div>
 
   <div class="toolbar">
-    <span class="hint"><b>Click any text to edit it.</b> Change the school year and the dates redraw automatically. Save a copy when you're done.</span>
+    <span class="hint"><b>Click any text to edit.</b> Edits autosave in this browser. Use "Save a copy" to publish a new version to GitHub.</span>
     <button class="btn" id="printBtn">Print</button>
     <button class="btn ghost" id="saveBtn">Save a copy</button>
-    <button class="btn warn" id="clearBtn">Clear all events</button>
+    <button class="btn ghost" id="exportJsonBtn">Export data</button>
+    <button class="btn ghost" id="importBtn">Import data</button>
+    <button class="btn warn" id="clearBtn">Clear events</button>
+    <button class="btn warn" id="resetBtn">Reset to published</button>
+    <input type="file" id="importFile" accept=".json,.html,.htm" style="display:none">
+  </div>
+  <div class="statusline" id="statusWrap"><span id="saveStatus">Autosaved in this browser</span></div>
+
+  <div class="banner" id="banner" hidden>
+    <span>A newer published calendar is available.</span>
+    <button class="btn" id="loadPublishedBtn">Load published version</button>
+    <span class="sub">This replaces the changes saved in this browser.</span>
   </div>
 
   <div class="months" id="months"></div>
@@ -204,6 +225,7 @@
 <!-- Saved data lives here. Edit through the page, not by hand. -->
 <script id="seed" type="application/json">
 {
+  "version": 1,
   "schoolName": "Westhill Institute",
   "tagline": "Go Wildcats!",
   "startYear": 2026,
@@ -392,205 +414,177 @@
 <script>
 (function(){
   "use strict";
+  var MONTH_NAMES=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var DOW=["Su","M","Tu","W","Th","F","Sa"];
+  var STORAGE_KEY="westhill-calendar";
 
-  var MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  var DOW = ["Su","M","Tu","W","Th","F","Sa"];
+  var SEED=JSON.parse(document.getElementById('seed').textContent);
+  if(SEED.version==null) SEED.version=1;
 
-  var STATE = JSON.parse(document.getElementById('seed').textContent);
+  function clone(o){return JSON.parse(JSON.stringify(o));}
+  function safeGet(){try{var s=window.localStorage.getItem(STORAGE_KEY);return s?JSON.parse(s):null;}catch(e){return null;}}
+  function safeSet(o){try{window.localStorage.setItem(STORAGE_KEY,JSON.stringify(o));return true;}catch(e){return false;}}
 
-  function yearForMonth(mIndex){
-    // Aug(7)..Dec(11) sit in startYear; Jan(0)..Jul(6) sit in startYear+1
-    return mIndex >= 7 ? STATE.startYear : STATE.startYear + 1;
+  var STATE, stored=safeGet(), newerPublished=false;
+  if(stored && typeof stored==='object' && stored.months){
+    STATE=stored;
+    if((stored.version||1) < SEED.version) newerPublished=true;
+  } else { STATE=clone(SEED); }
+  var storageOK=safeSet(STATE);
+
+  function pad(n){return n<10?'0'+n:''+n;}
+  function setStatus(msg,warn){
+    var el=document.getElementById('saveStatus'); if(!el) return;
+    var now=new Date();
+    el.textContent=(warn?'\u26a0 ':'')+msg+' \u00b7 '+pad(now.getHours())+':'+pad(now.getMinutes());
+    if(el.parentNode) el.parentNode.style.color=warn?'var(--danger)':'';
   }
+  function save(){ if(safeSet(STATE)) setStatus('Autosaved in this browser'); else setStatus('Edits are not being saved in this browser',true); }
 
+  function yearForMonth(m){return m>=7?STATE.startYear:STATE.startYear+1;}
   function eventDays(events){
-    // returns a Set of day numbers that have an event starting (or spanning) them
-    var set = {};
+    var set={};
     events.forEach(function(ev){
       if(!ev.d) return;
-      var parts = String(ev.d).split('-').map(function(x){return parseInt(x,10);});
-      if(isNaN(parts[0])) return;
-      var start = parts[0];
-      var end = parts.length>1 && !isNaN(parts[1]) ? parts[1] : start;
-      for(var i=start;i<=end;i++){ set[i]=true; }
+      var p=String(ev.d).split('-').map(function(x){return parseInt(x,10);});
+      if(isNaN(p[0])) return;
+      var s=p[0], e=p.length>1&&!isNaN(p[1])?p[1]:s;
+      for(var i=s;i<=e;i++) set[i]=true;
     });
     return set;
   }
-
-  function buildGrid(year, mIndex, events){
-    var firstDow = new Date(year, mIndex, 1).getDay();
-    var days = new Date(year, mIndex+1, 0).getDate();
-    var marked = eventDays(events);
-    var html = '<table class="cal"><thead><tr>';
-    for(var d=0; d<7; d++){ html += '<th>'+DOW[d]+'</th>'; }
-    html += '</tr></thead><tbody>';
-    var cell = 0;
-    var totalCells = Math.ceil((firstDow + days)/7)*7;
-    var day = 1;
-    for(var c=0; c<totalCells; c++){
-      if(c % 7 === 0) html += '<tr>';
-      var col = c % 7;
-      var isWeekend = (col === 0 || col === 6);
-      if(c < firstDow || day > days){
-        html += '<td class="empty'+(isWeekend?' we':'')+'"></td>';
-      } else {
-        var cls = isWeekend ? 'we' : '';
-        if(marked[day]) cls += (cls?' ':'') + 'ev';
-        html += '<td class="'+cls+'"><span class="num">'+day+'</span></td>';
-        day++;
-      }
-      if(c % 7 === 6) html += '</tr>';
+  function buildGrid(year,m,events){
+    var firstDow=new Date(year,m,1).getDay(), days=new Date(year,m+1,0).getDate(), marked=eventDays(events);
+    var html='<table class="cal"><thead><tr>';
+    for(var d=0;d<7;d++) html+='<th>'+DOW[d]+'</th>';
+    html+='</tr></thead><tbody>';
+    var total=Math.ceil((firstDow+days)/7)*7, day=1;
+    for(var c=0;c<total;c++){
+      if(c%7===0) html+='<tr>';
+      var col=c%7, we=(col===0||col===6);
+      if(c<firstDow||day>days){ html+='<td class="empty'+(we?' we':'')+'"></td>'; }
+      else{ var cls=we?'we':''; if(marked[day]) cls+=(cls?' ':'')+'ev'; html+='<td class="'+cls+'"><span class="num">'+day+'</span></td>'; day++; }
+      if(c%7===6) html+='</tr>';
     }
-    html += '</tbody></table>';
-    return html;
+    return html+'</tbody></table>';
   }
+  function esc(s){return (s==null?'':String(s));}
+  function aesc(s){return esc(s).replace(/"/g,'&quot;');}
 
-  function esc(s){ return (s==null?'':String(s)); }
-
-  function renderMonth(month, idx){
-    var year = yearForMonth(month.m);
-    var el = document.createElement('div');
-    el.className = 'month';
-    el.dataset.idx = idx;
-
-    var head = '<div class="month-head">'
-      + '<span class="month-name">'+MONTH_NAMES[month.m]+' <span class="yr">'+year+'</span></span>'
-      + '<input class="attr" data-idx="'+idx+'" data-field="attr" value="'+esc(month.attr).replace(/"/g,'&quot;')+'" placeholder="Profile" spellcheck="false" />'
-      + '</div>';
-
-    var grid = buildGrid(year, month.m, month.events);
-
-    var rows = '';
-    month.events.forEach(function(ev, ei){
-      rows += '<div class="ev-row">'
-        + '<input class="ev-day" data-idx="'+idx+'" data-ei="'+ei+'" data-field="d" value="'+esc(ev.d).replace(/"/g,'&quot;')+'" placeholder="–" spellcheck="false" />'
-        + '<textarea class="ev-text" data-idx="'+idx+'" data-ei="'+ei+'" data-field="t" rows="1" placeholder="Event">'+esc(ev.t)+'</textarea>'
-        + '<input class="ev-tag" data-idx="'+idx+'" data-ei="'+ei+'" data-field="tag" value="'+esc(ev.tag).replace(/"/g,'&quot;')+'" placeholder="" spellcheck="false" />'
-        + '<button class="ev-del" data-idx="'+idx+'" data-ei="'+ei+'" title="Remove">×</button>'
-        + '</div>';
+  function renderMonth(month,idx){
+    var year=yearForMonth(month.m), el=document.createElement('div');
+    el.className='month'; el.dataset.idx=idx;
+    var head='<div class="month-head">'
+      +'<span class="month-name">'+MONTH_NAMES[month.m]+' <span class="yr">'+year+'</span></span>'
+      +'<input class="attr" data-idx="'+idx+'" data-field="attr" value="'+aesc(month.attr)+'" placeholder="Profile" spellcheck="false" /></div>';
+    var rows='';
+    month.events.forEach(function(ev,ei){
+      rows+='<div class="ev-row">'
+        +'<input class="ev-day" data-idx="'+idx+'" data-ei="'+ei+'" data-field="d" value="'+aesc(ev.d)+'" placeholder="\u2013" spellcheck="false" />'
+        +'<textarea class="ev-text" data-idx="'+idx+'" data-ei="'+ei+'" data-field="t" rows="1" placeholder="Event">'+esc(ev.t)+'</textarea>'
+        +'<input class="ev-tag" data-idx="'+idx+'" data-ei="'+ei+'" data-field="tag" value="'+aesc(ev.tag)+'" placeholder="" spellcheck="false" />'
+        +'<button class="ev-del" data-idx="'+idx+'" data-ei="'+ei+'" title="Remove">\u00d7</button></div>';
     });
-
-    el.innerHTML = head + grid
-      + '<div class="events">' + rows
-      + '<button class="add-ev" data-idx="'+idx+'">+ Add event</button>'
-      + '</div>';
+    el.innerHTML=head+buildGrid(year,month.m,month.events)
+      +'<div class="events">'+rows+'<button class="add-ev" data-idx="'+idx+'">+ Add event</button></div>';
     return el;
   }
-
-  function autosize(ta){
-    ta.style.height = 'auto';
-    ta.style.height = (ta.scrollHeight) + 'px';
-  }
+  function autosize(ta){ ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px'; }
 
   function render(){
-    document.getElementById('yearLabel').textContent = STATE.startYear + '–' + (STATE.startYear+1);
-    document.getElementById('schoolName').textContent = STATE.schoolName;
-    document.getElementById('tagline').textContent = STATE.tagline;
-
-    var container = document.getElementById('months');
-    container.innerHTML = '';
-    STATE.months.forEach(function(month, idx){
-      container.appendChild(renderMonth(month, idx));
-    });
-    // size textareas after they're in the DOM
-    container.querySelectorAll('.ev-text').forEach(autosize);
+    document.getElementById('yearLabel').textContent=STATE.startYear+'\u2013'+(STATE.startYear+1);
+    document.getElementById('schoolName').textContent=STATE.schoolName;
+    document.getElementById('tagline').textContent=STATE.tagline;
+    var c=document.getElementById('months'); c.innerHTML='';
+    STATE.months.forEach(function(month,idx){ c.appendChild(renderMonth(month,idx)); });
+    c.querySelectorAll('.ev-text').forEach(autosize);
   }
-
   function regridMonth(idx){
-    // redraw just the grid for one month after an event-day edit
-    var monthEl = document.querySelector('.month[data-idx="'+idx+'"]');
-    if(!monthEl) return;
-    var month = STATE.months[idx];
-    var year = yearForMonth(month.m);
-    var oldTable = monthEl.querySelector('table.cal');
-    var temp = document.createElement('div');
-    temp.innerHTML = buildGrid(year, month.m, month.events);
-    monthEl.replaceChild(temp.firstChild, oldTable);
+    var el=document.querySelector('.month[data-idx="'+idx+'"]'); if(!el) return;
+    var month=STATE.months[idx], t=document.createElement('div');
+    t.innerHTML=buildGrid(yearForMonth(month.m),month.m,month.events);
+    el.replaceChild(t.firstChild, el.querySelector('table.cal'));
   }
 
-  // ---- Editing ----
-  var container = document.getElementById('months');
-
-  container.addEventListener('input', function(e){
-    var t = e.target;
-    var idx = t.dataset.idx;
-    if(idx == null) return;
-    var field = t.dataset.field;
-
+  var container=document.getElementById('months');
+  container.addEventListener('input',function(e){
+    var t=e.target, idx=t.dataset.idx; if(idx==null) return;
+    var field=t.dataset.field;
     if(t.classList.contains('ev-text')) autosize(t);
-
-    if(field === 'attr'){
-      STATE.months[idx].attr = t.value;
-      return;
-    }
-    var ei = t.dataset.ei;
-    if(ei != null && field){
-      STATE.months[idx].events[ei][field] = t.value;
-      if(field === 'd') regridMonth(idx);
-    }
+    if(field==='attr'){ STATE.months[idx].attr=t.value; save(); return; }
+    var ei=t.dataset.ei;
+    if(ei!=null && field){ STATE.months[idx].events[ei][field]=t.value; if(field==='d') regridMonth(idx); save(); }
   });
-
-  container.addEventListener('click', function(e){
-    var t = e.target;
+  container.addEventListener('click',function(e){
+    var t=e.target;
     if(t.classList.contains('add-ev')){
-      var idx = t.dataset.idx;
-      STATE.months[idx].events.push({d:'', t:'', tag:''});
-      render();
-      // focus the new row's text field
-      var rows = document.querySelectorAll('.month[data-idx="'+idx+'"] .ev-text');
-      if(rows.length) rows[rows.length-1].focus();
+      var idx=t.dataset.idx; STATE.months[idx].events.push({d:'',t:'',tag:''}); render(); save();
+      var r=document.querySelectorAll('.month[data-idx="'+idx+'"] .ev-text'); if(r.length) r[r.length-1].focus();
     }
-    if(t.classList.contains('ev-del')){
-      var i = t.dataset.idx, ei = t.dataset.ei;
-      STATE.months[i].events.splice(ei,1);
-      render();
+    if(t.classList.contains('ev-del')){ STATE.months[t.dataset.idx].events.splice(t.dataset.ei,1); render(); save(); }
+  });
+  document.getElementById('schoolName').addEventListener('input',function(){ STATE.schoolName=this.textContent.trim(); save(); });
+  document.getElementById('tagline').addEventListener('input',function(){ STATE.tagline=this.textContent.trim(); save(); });
+
+  function shiftYear(d){ STATE.startYear+=d; render(); save(); }
+  document.getElementById('prevYear').addEventListener('click',function(){ shiftYear(-1); });
+  document.getElementById('nextYear').addEventListener('click',function(){ shiftYear(1); });
+  document.getElementById('printBtn').addEventListener('click',function(){ window.print(); });
+
+  document.getElementById('clearBtn').addEventListener('click',function(){
+    if(confirm('Remove every event from all months? Month names and grids stay. Your saved or published copies are not affected.')){
+      STATE.months.forEach(function(m){ m.events=[]; }); render(); save();
+    }
+  });
+  document.getElementById('resetBtn').addEventListener('click',function(){
+    if(confirm('Discard the changes saved in this browser and reload the published version?')){
+      STATE=clone(SEED); save(); render();
+      var b=document.getElementById('banner'); if(b) b.hidden=true; setStatus('Loaded published version');
     }
   });
 
-  // masthead editable text
-  document.getElementById('schoolName').addEventListener('input', function(){
-    STATE.schoolName = this.textContent.trim();
-  });
-  document.getElementById('tagline').addEventListener('input', function(){
-    STATE.tagline = this.textContent.trim();
-  });
-
-  // ---- Year navigation ----
-  function shiftYear(delta){
-    STATE.startYear += delta;
-    render();
+  function downloadBlob(content,type,filename){
+    var url=URL.createObjectURL(new Blob([content],{type:type}));
+    var a=document.createElement('a'); a.href=url; a.download=filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); },1000);
   }
-  document.getElementById('prevYear').addEventListener('click', function(){ shiftYear(-1); });
-  document.getElementById('nextYear').addEventListener('click', function(){ shiftYear(1); });
-
-  // ---- Print ----
-  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
-
-  // ---- Clear all events ----
-  document.getElementById('clearBtn').addEventListener('click', function(){
-    if(confirm('Remove every event from all months? The calendar grids and month names stay. This cannot be undone in the page, but your saved copies are unaffected.')){
-      STATE.months.forEach(function(m){ m.events = []; });
-      render();
-    }
+  document.getElementById('saveBtn').addEventListener('click',function(){
+    STATE.version=(STATE.version||1)+1; save();
+    document.getElementById('seed').textContent=JSON.stringify(STATE,null,2);
+    downloadBlob('<!DOCTYPE html>\n'+document.documentElement.outerHTML,'text/html','Westhill-Calendar-'+STATE.startYear+'-'+(STATE.startYear+1)+'.html');
+    setStatus('Saved a copy (v'+STATE.version+')');
   });
-
-  // ---- Save a copy (self-contained HTML with current data baked in) ----
-  document.getElementById('saveBtn').addEventListener('click', function(){
-    document.getElementById('seed').textContent = JSON.stringify(STATE, null, 2);
-    var doctype = '<!DOCTYPE html>\n';
-    var html = doctype + document.documentElement.outerHTML;
-    var blob = new Blob([html], {type:'text/html'});
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'Westhill-Calendar-' + STATE.startYear + '-' + (STATE.startYear+1) + '.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  document.getElementById('exportJsonBtn').addEventListener('click',function(){
+    downloadBlob(JSON.stringify(STATE,null,2),'application/json','Westhill-Calendar-'+STATE.startYear+'-'+(STATE.startYear+1)+'.json');
+  });
+  document.getElementById('importBtn').addEventListener('click',function(){ document.getElementById('importFile').click(); });
+  document.getElementById('importFile').addEventListener('change',function(e){
+    var file=e.target.files[0]; if(!file) return;
+    var reader=new FileReader();
+    reader.onload=function(){
+      try{
+        var text=reader.result, data;
+        if(/\.html?$/i.test(file.name)){
+          var m=text.match(/<script id="seed"[^>]*>([\s\S]*?)<\/script>/);
+          if(!m) throw new Error('no seed'); data=JSON.parse(m[1]);
+        } else { data=JSON.parse(text); }
+        if(!data.months) throw new Error('bad data');
+        STATE=data; save(); render();
+        var b=document.getElementById('banner'); if(b) b.hidden=true; setStatus('Imported '+file.name);
+      }catch(err){ alert('Could not read that file. Pick a calendar .html or .json saved from this tool.'); }
+    };
+    reader.readAsText(file); e.target.value='';
+  });
+  var lp=document.getElementById('loadPublishedBtn');
+  if(lp) lp.addEventListener('click',function(){
+    STATE=clone(SEED); save(); render();
+    document.getElementById('banner').hidden=true; setStatus('Loaded published version');
   });
 
   render();
+  if(newerPublished){ var b=document.getElementById('banner'); if(b) b.hidden=false; }
+  setStatus(storageOK?'Autosaved in this browser':'Edits are not being saved in this browser', !storageOK);
 })();
 </script>
 </body>
