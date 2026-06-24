@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><plasmo-csui id="brisk-extension-shadow-root-pcblbflgdkdfdjpjifeppkljdnaekohj" data-extension-version="1.0.392" data-extension-name="Brisk Teaching - AI that Works Where Teachers Work" data-brisk-extension-shadow-host="true" style="z-index: 2147483647;"></plasmo-csui><script async="" defer="" src="chrome-extension://pcblbflgdkdfdjpjifeppkljdnaekohj/GdocApi.bb24edea.js" type="text/javascript"></script><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Westhill Institute Academic Calendar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
   :root{
     --navy:#16263F;
@@ -191,7 +190,12 @@
     .btn{display:none;}
   }
 </style>
-</head>
+<style>
+.--brisk-axd {
+  filter: blur(4px);
+  user-select: none;
+}
+</style></head>
 <body>
 <div class="wrap">
 
@@ -221,222 +225,886 @@
     <button class="btn warn" id="resetBtn">Reset to published</button>
     <input type="file" id="importFile" accept=".json,.html,.htm" style="display:none">
   </div>
-  <div class="statusline" id="statusWrap"><span id="saveStatus">Autosaved in this browser</span></div>
+  <div class="statusline" id="statusWrap"><span id="saveStatus">Autosaved in this browser · 11:58</span></div>
 
-  <details class="gh-panel" id="ghPanel">
+  <details class="gh-panel" id="ghPanel" open="">
     <summary>Publish directly to GitHub (no download or reupload)</summary>
     <div class="gh-grid">
-      <div class="gh-field"><label>Owner</label><input id="ghOwner" placeholder="your-account" spellcheck="false" autocomplete="off"></div>
-      <div class="gh-field"><label>Repository</label><input id="ghRepo" placeholder="calendar" spellcheck="false" autocomplete="off"></div>
-      <div class="gh-field"><label>Branch</label><input id="ghBranch" placeholder="main" spellcheck="false" autocomplete="off"></div>
-      <div class="gh-field" style="flex:1 1 160px;"><label>File path</label><input id="ghPath" placeholder="index.html" spellcheck="false" autocomplete="off"></div>
+      <div class="gh-field"><label>Owner</label><input id="ghOwner" placeholder="your-account" spellcheck="false" autocomplete="off" value="ktyall"></div>
+      <div class="gh-field"><label>Repository</label><input id="ghRepo" placeholder="calendar" spellcheck="false" autocomplete="off" value="westhill-calendar"></div>
+      <div class="gh-field"><label>Branch</label><input id="ghBranch" placeholder="main" spellcheck="false" autocomplete="off" value="main"></div>
+      <div class="gh-field" style="flex:1 1 160px;"><label>File path</label><input id="ghPath" placeholder="index.html" spellcheck="false" autocomplete="off" value="index.html"></div>
       <div class="gh-field" style="flex:1 1 220px;"><label>Access token</label><input id="ghToken" type="password" placeholder="github_pat_..." spellcheck="false" autocomplete="off"></div>
       <button class="btn" id="ghPublish">Publish</button>
       <label class="gh-remember"><input type="checkbox" id="ghRemember"> Remember token until I close the browser</label>
-      <div id="ghStatus"></div>
+      <div id="ghStatus" style="color: var(--muted);">Checking the current file on GitHub...</div>
       <div class="gh-note"><b>Use a fine-grained token limited to this one repository, with Contents set to Read and write.</b> The token you type here stays in your browser and is sent only to GitHub. It is never written into the published file. Do not paste a token into the page's code or commit it anywhere, on a public repo that would hand write access to anyone who reads it.</div>
     </div>
   </details>
 
-  <div class="banner" id="banner" hidden>
+  <div class="banner" id="banner" hidden="">
     <span>A newer published calendar is available.</span>
     <button class="btn" id="loadPublishedBtn">Load published version</button>
     <span class="sub">This replaces the changes saved in this browser.</span>
   </div>
 
-  <div class="months" id="months"></div>
+  <div class="months" id="months"><div class="month" data-idx="0"><div class="month-head"><span class="month-name">August <span class="yr">2026</span></span><input class="attr" data-idx="0" data-field="attr" value="" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="empty we"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="we"><span class="num">1</span></td></tr><tr><td class="we"><span class="num">2</span></td><td class=""><span class="num">3</span></td><td class=""><span class="num">4</span></td><td class="ev"><span class="num">5</span></td><td class=""><span class="num">6</span></td><td class=""><span class="num">7</span></td><td class="we"><span class="num">8</span></td></tr><tr><td class="we"><span class="num">9</span></td><td class="ev"><span class="num">10</span></td><td class=""><span class="num">11</span></td><td class=""><span class="num">12</span></td><td class="ev"><span class="num">13</span></td><td class=""><span class="num">14</span></td><td class="we"><span class="num">15</span></td></tr><tr><td class="we"><span class="num">16</span></td><td class="ev"><span class="num">17</span></td><td class="ev"><span class="num">18</span></td><td class="ev"><span class="num">19</span></td><td class="ev"><span class="num">20</span></td><td class="ev"><span class="num">21</span></td><td class="we"><span class="num">22</span></td></tr><tr><td class="we"><span class="num">23</span></td><td class="ev"><span class="num">24</span></td><td class="ev"><span class="num">25</span></td><td class="ev"><span class="num">26</span></td><td class="ev"><span class="num">27</span></td><td class=""><span class="num">28</span></td><td class="we"><span class="num">29</span></td></tr><tr><td class="we"><span class="num">30</span></td><td class=""><span class="num">31</span></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty we"></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="0" data-ei="0" data-field="d" value="5" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="0" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 26px;">First day back for the leadership team</textarea><input class="ev-tag" data-idx="0" data-ei="0" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="0" data-ei="0" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="0" data-ei="1" data-field="d" value="10" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="0" data-ei="1" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Meet with new teachers. SEP Directors return</textarea><input class="ev-tag" data-idx="0" data-ei="1" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="0" data-ei="1" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="0" data-ei="2" data-field="d" value="13" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="0" data-ei="2" data-field="t" rows="1" placeholder="Event" style="height: 43px;">First day back for all teachers, 8:00 am at the University Auditorium, Santa Fe Campus</textarea><input class="ev-tag" data-idx="0" data-ei="2" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="0" data-ei="2" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="0" data-ei="3" data-field="d" value="17-21" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="0" data-ei="3" data-field="t" rows="1" placeholder="Event" style="height: 26px;">In-campus training and prep!</textarea><input class="ev-tag" data-idx="0" data-ei="3" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="0" data-ei="3" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="0" data-ei="4" data-field="d" value="19" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="0" data-ei="4" data-field="t" rows="1" placeholder="Event" style="height: 61px;">9:00 am - 12:00 pm Santa Fe Lower School Back to School
+After-school Sample classes					</textarea><input class="ev-tag" data-idx="0" data-ei="4" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="0" data-ei="4" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="0" data-ei="5" data-field="d" value="20" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="0" data-ei="5" data-field="t" rows="1" placeholder="Event" style="height: 61px;">9:00 am - 12:00 pm Carpatos Lower School Back to School
+After-school Sample classes					</textarea><input class="ev-tag" data-idx="0" data-ei="5" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="0" data-ei="5" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="0" data-ei="6" data-field="d" value="21" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="0" data-ei="6" data-field="t" rows="1" placeholder="Event" style="height: 113px;">8:00 am - 9:00 am Middle School welcome to new students and 6th graders - University Auditorium, followed by MS building tour
+9:00 am - 10:00 am High School welcome to new students and 10th graders - University Auditorium, followed by HS building tour</textarea><input class="ev-tag" data-idx="0" data-ei="6" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="0" data-ei="6" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="0" data-ei="7" data-field="d" value="24" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="0" data-ei="7" data-field="t" rows="1" placeholder="Event" style="height: 113px;">First day of school.    
+Lower School - Diagnostics, 1:1, phonics evalutions begin
+Houses during PE for new students 
+Tentative - Afterschool Presentation 8 am - Santa Fe</textarea><input class="ev-tag" data-idx="0" data-ei="7" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="0" data-ei="7" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="0" data-ei="8" data-field="d" value="25" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="0" data-ei="8" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Tentative - Afterschool Presentation 8 am - Carpatos </textarea><input class="ev-tag" data-idx="0" data-ei="8" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="0" data-ei="8" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="0" data-ei="9" data-field="d" value="26" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="0" data-ei="9" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Coffee Morning for new families 8:00 am - Carpatos Lower School. </textarea><input class="ev-tag" data-idx="0" data-ei="9" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="0" data-ei="9" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="0" data-ei="10" data-field="d" value="27" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="0" data-ei="10" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Coffee Morning for new families, 7:30 am - Santa Fe Lower, Middle and High School (University Auditorium)</textarea><input class="ev-tag" data-idx="0" data-ei="10" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="0" data-ei="10" title="Remove">×</button></div><button class="add-ev" data-idx="0">+ Add event</button></div></div><div class="month" data-idx="1"><div class="month-head"><span class="month-name">September <span class="yr">2026</span></span><input class="attr" data-idx="1" data-field="attr" value="Open Minded" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="empty we"></td><td class="empty"></td><td class="ev"><span class="num">1</span></td><td class="ev"><span class="num">2</span></td><td class="ev"><span class="num">3</span></td><td class="ev"><span class="num">4</span></td><td class="we ev"><span class="num">5</span></td></tr><tr><td class="we ev"><span class="num">6</span></td><td class="ev"><span class="num">7</span></td><td class="ev"><span class="num">8</span></td><td class="ev"><span class="num">9</span></td><td class="ev"><span class="num">10</span></td><td class="ev"><span class="num">11</span></td><td class="we ev"><span class="num">12</span></td></tr><tr><td class="we ev"><span class="num">13</span></td><td class=""><span class="num">14</span></td><td class="ev"><span class="num">15</span></td><td class="ev"><span class="num">16</span></td><td class="ev"><span class="num">17</span></td><td class="ev"><span class="num">18</span></td><td class="we ev"><span class="num">19</span></td></tr><tr><td class="we"><span class="num">20</span></td><td class=""><span class="num">21</span></td><td class="ev"><span class="num">22</span></td><td class="ev"><span class="num">23</span></td><td class="ev"><span class="num">24</span></td><td class="ev"><span class="num">25</span></td><td class="we ev"><span class="num">26</span></td></tr><tr><td class="we"><span class="num">27</span></td><td class=""><span class="num">28</span></td><td class="ev"><span class="num">29</span></td><td class="ev"><span class="num">30</span></td><td class="empty"></td><td class="empty"></td><td class="empty we"></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="0" data-field="d" value="1" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 61px;">After-school trials begin (2 weeks). Student ID pictures SF Lower/Middle. Swimming after school begins. House winners presentation (Ponce)</textarea><input class="ev-tag" data-idx="1" data-ei="0" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="0" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="1" data-field="d" value="2-12" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="1" data-field="t" rows="1" placeholder="Event" style="height: 26px;">MAP Testing</textarea><input class="ev-tag" data-idx="1" data-ei="1" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="1" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="2" data-field="d" value="3" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="2" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Student ID pictures, High School</textarea><input class="ev-tag" data-idx="1" data-ei="2" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="2" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="3" data-field="d" value="5" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="3" data-field="t" rows="1" placeholder="Event" style="height: 61px;">MYP meeting for parents. DP meeting for 12th grade. Summer reading Bingo reward, Lower School</textarea><input class="ev-tag" data-idx="1" data-ei="3" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="3" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="4" data-field="d" value="8" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="4" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Academic after school classes begin. Grito Mexican Independence, Lower School flag ceremony</textarea><input class="ev-tag" data-idx="1" data-ei="4" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="4" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="5" data-field="d" value="10" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="5" data-field="t" rows="1" placeholder="Event" style="height: 26px;">PTA Room parents elections, Santa Fe 8:00 am</textarea><input class="ev-tag" data-idx="1" data-ei="5" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="5" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="6" data-field="d" value="11" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="6" data-field="t" rows="1" placeholder="Event" style="height: 26px;">PTA Room parents elections, Carpatos 8:00 am</textarea><input class="ev-tag" data-idx="1" data-ei="6" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="6" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="7" data-field="d" value="12" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="7" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Last day for MAP testing. Lower &amp; Middle free dress, Mexican traditional clothing</textarea><input class="ev-tag" data-idx="1" data-ei="7" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="7" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="8" data-field="d" value="13" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="8" data-field="t" rows="1" placeholder="Event" style="height: 26px;">SAT Testing</textarea><input class="ev-tag" data-idx="1" data-ei="8" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="8" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="9" data-field="d" value="15-16" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="9" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Mexican Independence Day, No School</textarea><input class="ev-tag" data-idx="1" data-ei="9" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="9" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="10" data-field="d" value="17" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="10" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Recreational after school classes begin</textarea><input class="ev-tag" data-idx="1" data-ei="10" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="10" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="11" data-field="d" value="18" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="11" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Coffee Hour Session 1, Carpatos 7:45 am</textarea><input class="ev-tag" data-idx="1" data-ei="11" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="11" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="12" data-field="d" value="19" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="12" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Coffee Hour Session 1, Santa Fe 7:45 am. National Earthquake Drill</textarea><input class="ev-tag" data-idx="1" data-ei="12" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="12" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="13" data-field="d" value="22-26" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="13" data-field="t" rows="1" placeholder="Event" style="height: 26px;">School-Wide Wildcat Week</textarea><input class="ev-tag" data-idx="1" data-ei="13" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="13" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="14" data-field="d" value="29" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="14" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Westhill College Fair. Yearbook and group pictures, Carpatos</textarea><input class="ev-tag" data-idx="1" data-ei="14" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="14" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="1" data-ei="15" data-field="d" value="30" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="1" data-ei="15" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Student Council elections Lower &amp; MS. Winter Festival info sent home. Make-up student ID, Carpatos</textarea><input class="ev-tag" data-idx="1" data-ei="15" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="1" data-ei="15" title="Remove">×</button></div><button class="add-ev" data-idx="1">+ Add event</button></div></div><div class="month" data-idx="2"><div class="month-head"><span class="month-name">October <span class="yr">2026</span></span><input class="attr" data-idx="2" data-field="attr" value="Balanced" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="empty we"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="ev"><span class="num">1</span></td><td class="ev"><span class="num">2</span></td><td class="we ev"><span class="num">3</span></td></tr><tr><td class="we ev"><span class="num">4</span></td><td class=""><span class="num">5</span></td><td class="ev"><span class="num">6</span></td><td class="ev"><span class="num">7</span></td><td class=""><span class="num">8</span></td><td class=""><span class="num">9</span></td><td class="we ev"><span class="num">10</span></td></tr><tr><td class="we"><span class="num">11</span></td><td class=""><span class="num">12</span></td><td class="ev"><span class="num">13</span></td><td class="ev"><span class="num">14</span></td><td class="ev"><span class="num">15</span></td><td class="ev"><span class="num">16</span></td><td class="we ev"><span class="num">17</span></td></tr><tr><td class="we ev"><span class="num">18</span></td><td class=""><span class="num">19</span></td><td class=""><span class="num">20</span></td><td class=""><span class="num">21</span></td><td class=""><span class="num">22</span></td><td class="ev"><span class="num">23</span></td><td class="we ev"><span class="num">24</span></td></tr><tr><td class="we"><span class="num">25</span></td><td class=""><span class="num">26</span></td><td class="ev"><span class="num">27</span></td><td class="ev"><span class="num">28</span></td><td class="ev"><span class="num">29</span></td><td class="ev"><span class="num">30</span></td><td class="we ev"><span class="num">31</span></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="0" data-field="d" value="" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Month focus: Formal observations</textarea><input class="ev-tag" data-idx="2" data-ei="0" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="0" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="1" data-field="d" value="1" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="1" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Yom Kippur</textarea><input class="ev-tag" data-idx="2" data-ei="1" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="1" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="2" data-field="d" value="2" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="2" data-field="t" rows="1" placeholder="Event" style="height: 26px;">National No Bullying Day, wear blue</textarea><input class="ev-tag" data-idx="2" data-ei="2" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="2" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="3" data-field="d" value="3" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="3" data-field="t" rows="1" placeholder="Event" style="height: 43px;">MAP Growth Success Celebration. Board Meeting 10:00 am</textarea><input class="ev-tag" data-idx="2" data-ei="3" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="3" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="4" data-field="d" value="4" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="4" data-field="t" rows="1" placeholder="Event" style="height: 26px;">SAT Testing</textarea><input class="ev-tag" data-idx="2" data-ei="4" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="4" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="5" data-field="d" value="6" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="5" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Yearbook and group pictures Santa Fe (coordinate with Foto Vega). Make-up student ID SF. PYP meeting for parents Carpatos 8 am</textarea><input class="ev-tag" data-idx="2" data-ei="5" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="5" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="6" data-field="d" value="7" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="6" data-field="t" rows="1" placeholder="Event" style="height: 26px;">PYP meeting for parents, Santa Fe 8 am</textarea><input class="ev-tag" data-idx="2" data-ei="6" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="6" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="7" data-field="d" value="10" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="7" data-field="t" rows="1" placeholder="Event" style="height: 26px;">MHS Progress Reports due</textarea><input class="ev-tag" data-idx="2" data-ei="7" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="7" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="8" data-field="d" value="13-15" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="8" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Schoolwide PE events, Carpatos</textarea><input class="ev-tag" data-idx="2" data-ei="8" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="8" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="9" data-field="d" value="16-18" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="9" data-field="t" rows="1" placeholder="Event" style="height: 26px;">IBAMEX, No School for students</textarea><input class="ev-tag" data-idx="2" data-ei="9" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="9" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="10" data-field="d" value="23" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="10" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Carpatos Drill 9:30 am</textarea><input class="ev-tag" data-idx="2" data-ei="10" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="10" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="11" data-field="d" value="24" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="11" data-field="t" rows="1" placeholder="Event" style="height: 26px;">SF Drill 9:30 am</textarea><input class="ev-tag" data-idx="2" data-ei="11" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="11" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="12" data-field="d" value="27-29" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="12" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Swimming open class for parents (SF Lower)</textarea><input class="ev-tag" data-idx="2" data-ei="12" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="12" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="13" data-field="d" value="30" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="13" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Dress in pink for Breast Cancer Awareness, Carpatos. Halloween SF Lower/Middle. MS Halloween competition</textarea><input class="ev-tag" data-idx="2" data-ei="13" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="13" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="2" data-ei="14" data-field="d" value="31" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="2" data-ei="14" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Halloween Carpatos. ASOMEX Swimming (31-2). Dress in pink for Breast Cancer Awareness, Santa Fe</textarea><input class="ev-tag" data-idx="2" data-ei="14" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="2" data-ei="14" title="Remove">×</button></div><button class="add-ev" data-idx="2">+ Add event</button></div></div><div class="month" data-idx="3"><div class="month-head"><span class="month-name">November <span class="yr">2026</span></span><input class="attr" data-idx="3" data-field="attr" value="Knowledgeable" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="we"><span class="num">1</span></td><td class=""><span class="num">2</span></td><td class="ev"><span class="num">3</span></td><td class=""><span class="num">4</span></td><td class="ev"><span class="num">5</span></td><td class="ev"><span class="num">6</span></td><td class="we ev"><span class="num">7</span></td></tr><tr><td class="we ev"><span class="num">8</span></td><td class=""><span class="num">9</span></td><td class="ev"><span class="num">10</span></td><td class=""><span class="num">11</span></td><td class="ev"><span class="num">12</span></td><td class="ev"><span class="num">13</span></td><td class="we ev"><span class="num">14</span></td></tr><tr><td class="we ev"><span class="num">15</span></td><td class=""><span class="num">16</span></td><td class="ev"><span class="num">17</span></td><td class="ev"><span class="num">18</span></td><td class="ev"><span class="num">19</span></td><td class="ev"><span class="num">20</span></td><td class="we ev"><span class="num">21</span></td></tr><tr><td class="we"><span class="num">22</span></td><td class=""><span class="num">23</span></td><td class="ev"><span class="num">24</span></td><td class="ev"><span class="num">25</span></td><td class="ev"><span class="num">26</span></td><td class="ev"><span class="num">27</span></td><td class="we ev"><span class="num">28</span></td></tr><tr><td class="we"><span class="num">29</span></td><td class=""><span class="num">30</span></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty we"></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="0" data-field="d" value="3" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Día de Muertos: chocolate milk and Pan de Muerto</textarea><input class="ev-tag" data-idx="3" data-ei="0" data-field="tag" value="Yearbook" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="0" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="1" data-field="d" value="5" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="1" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Coffee Hour Session 2 Carpatos 7:45 am. 9 am meeting with Javier re MS</textarea><input class="ev-tag" data-idx="3" data-ei="1" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="1" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="2" data-field="d" value="6" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="2" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Coffee Hour Session 2 Santa Fe 7:45 am. 5th grade parent meeting with Javier 9 am. 5th grade visit MS</textarea><input class="ev-tag" data-idx="3" data-ei="2" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="2" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="3" data-field="d" value="7" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="3" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Coffee Hour Session 2 MHS 7:45 am. 9th grade parent meeting 9 am. Algebraix grades due, last day of Trimester 1, Toddle closes</textarea><input class="ev-tag" data-idx="3" data-ei="3" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="3" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="4" data-field="d" value="8" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="4" data-field="t" rows="1" placeholder="Event" style="height: 26px;">SAT Testing</textarea><input class="ev-tag" data-idx="3" data-ei="4" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="4" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="5" data-field="d" value="10" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="5" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Lower School Toddle Reports. Mexican Revolution presentation, Lower School flag ceremony</textarea><input class="ev-tag" data-idx="3" data-ei="5" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="5" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="6" data-field="d" value="12" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="6" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Winter Festival rehearsal permission slips sent home (Carpatos)</textarea><input class="ev-tag" data-idx="3" data-ei="6" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="6" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="7" data-field="d" value="13-15" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="7" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Camp Nature for 6th &amp; 8th</textarea><input class="ev-tag" data-idx="3" data-ei="7" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="7" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="8" data-field="d" value="17" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="8" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Mexican Revolution, No School</textarea><input class="ev-tag" data-idx="3" data-ei="8" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="8" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="9" data-field="d" value="18" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="9" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Carpatos Drill 10:00 am</textarea><input class="ev-tag" data-idx="3" data-ei="9" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="9" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="10" data-field="d" value="19" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="10" data-field="t" rows="1" placeholder="Event" style="height: 43px;">SF Drill 10:00 am. Lower School Science Fair both campuses (Carpatos 8-10 am; SF 12-2 pm)</textarea><input class="ev-tag" data-idx="3" data-ei="10" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="10" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="11" data-field="d" value="20" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="11" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Academic after school ends</textarea><input class="ev-tag" data-idx="3" data-ei="11" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="11" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="12" data-field="d" value="20-21" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="12" data-field="t" rows="1" placeholder="Event" style="height: 26px;">PTCs Lower School</textarea><input class="ev-tag" data-idx="3" data-ei="12" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="12" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="13" data-field="d" value="21" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="13" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Thanksgiving Shared Lunch</textarea><input class="ev-tag" data-idx="3" data-ei="13" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="13" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="3" data-ei="14" data-field="d" value="24-28" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="3" data-ei="14" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Thanksgiving Week, No School</textarea><input class="ev-tag" data-idx="3" data-ei="14" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="3" data-ei="14" title="Remove">×</button></div><button class="add-ev" data-idx="3">+ Add event</button></div></div><div class="month" data-idx="4"><div class="month-head"><span class="month-name">December <span class="yr">2026</span></span><input class="attr" data-idx="4" data-field="attr" value="Communicators" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="empty we"></td><td class="empty"></td><td class="ev"><span class="num">1</span></td><td class="ev"><span class="num">2</span></td><td class="ev"><span class="num">3</span></td><td class="ev"><span class="num">4</span></td><td class="we ev"><span class="num">5</span></td></tr><tr><td class="we ev"><span class="num">6</span></td><td class="ev"><span class="num">7</span></td><td class="ev"><span class="num">8</span></td><td class="ev"><span class="num">9</span></td><td class="ev"><span class="num">10</span></td><td class="ev"><span class="num">11</span></td><td class="we ev"><span class="num">12</span></td></tr><tr><td class="we ev"><span class="num">13</span></td><td class="ev"><span class="num">14</span></td><td class="ev"><span class="num">15</span></td><td class="ev"><span class="num">16</span></td><td class="ev"><span class="num">17</span></td><td class="ev"><span class="num">18</span></td><td class="we ev"><span class="num">19</span></td></tr><tr><td class="we"><span class="num">20</span></td><td class=""><span class="num">21</span></td><td class="ev"><span class="num">22</span></td><td class="ev"><span class="num">23</span></td><td class="ev"><span class="num">24</span></td><td class="ev"><span class="num">25</span></td><td class="we ev"><span class="num">26</span></td></tr><tr><td class="we ev"><span class="num">27</span></td><td class="ev"><span class="num">28</span></td><td class="ev"><span class="num">29</span></td><td class="ev"><span class="num">30</span></td><td class="ev"><span class="num">31</span></td><td class="empty"></td><td class="empty we"></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="0" data-field="d" value="1-5" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Book Fair, Carpatos. Parents invited for reading/holiday tradition sharing. Book reports with librarians</textarea><input class="ev-tag" data-idx="4" data-ei="0" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="0" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="1" data-field="d" value="3-15" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="1" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Mock Exams, HS</textarea><input class="ev-tag" data-idx="4" data-ei="1" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="1" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="2" data-field="d" value="4-5" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="2" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Spelling Bee, MS</textarea><input class="ev-tag" data-idx="4" data-ei="2" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="2" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="3" data-field="d" value="5" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="3" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Winter Festival for the Institute</textarea><input class="ev-tag" data-idx="4" data-ei="3" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="3" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="4" data-field="d" value="6" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="4" data-field="t" rows="1" placeholder="Event" style="height: 26px;">SAT Testing</textarea><input class="ev-tag" data-idx="4" data-ei="4" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="4" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="5" data-field="d" value="8-12" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="5" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Book Fair, Santa Fe. Parents invited for reading/holiday tradition sharing</textarea><input class="ev-tag" data-idx="4" data-ei="5" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="5" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="6" data-field="d" value="9" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="6" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Carpatos Karate Exam</textarea><input class="ev-tag" data-idx="4" data-ei="6" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="6" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="7" data-field="d" value="10" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="7" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Winterfest rehearsal</textarea><input class="ev-tag" data-idx="4" data-ei="7" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="7" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="8" data-field="d" value="11" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="8" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Winterfest Carpatos. Santa Fe Karate Exam</textarea><input class="ev-tag" data-idx="4" data-ei="8" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="8" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="9" data-field="d" value="12" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="9" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Winterfest Santa Fe. Teacher expectations due (teachers)</textarea><input class="ev-tag" data-idx="4" data-ei="9" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="9" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="10" data-field="d" value="15-19" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="10" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Holiday Wildcat Week</textarea><input class="ev-tag" data-idx="4" data-ei="10" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="10" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="11" data-field="d" value="15" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="11" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Gift baskets for staff during flag ceremony (MHS &amp; SF Lower together)</textarea><input class="ev-tag" data-idx="4" data-ei="11" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="11" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="12" data-field="d" value="16" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="12" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Santa's visit and Christmas presentation, Lower School 10 am Auditorium</textarea><input class="ev-tag" data-idx="4" data-ei="12" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="12" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="13" data-field="d" value="17" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="13" data-field="t" rows="1" placeholder="Event" style="height: 43px;">End of Semester 1, High School grades due. Carpatos Drill 8:30 am</textarea><input class="ev-tag" data-idx="4" data-ei="13" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="13" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="14" data-field="d" value="18" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="14" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Last day of after school classes. SF Drill 8:00 am</textarea><input class="ev-tag" data-idx="4" data-ei="14" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="14" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="15" data-field="d" value="19" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="15" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Piñatas. Teacher expectations due (admin)</textarea><input class="ev-tag" data-idx="4" data-ei="15" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="15" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="4" data-ei="16" data-field="d" value="22-31" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="4" data-ei="16" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Winter Holiday Vacation</textarea><input class="ev-tag" data-idx="4" data-ei="16" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="4" data-ei="16" title="Remove">×</button></div><button class="add-ev" data-idx="4">+ Add event</button></div></div><div class="month" data-idx="5"><div class="month-head"><span class="month-name">January <span class="yr">2027</span></span><input class="attr" data-idx="5" data-field="attr" value="Thinkers" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="empty we"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="ev"><span class="num">1</span></td><td class="we ev"><span class="num">2</span></td></tr><tr><td class="we ev"><span class="num">3</span></td><td class="ev"><span class="num">4</span></td><td class="ev"><span class="num">5</span></td><td class="ev"><span class="num">6</span></td><td class="ev"><span class="num">7</span></td><td class=""><span class="num">8</span></td><td class="we ev"><span class="num">9</span></td></tr><tr><td class="we"><span class="num">10</span></td><td class=""><span class="num">11</span></td><td class="ev"><span class="num">12</span></td><td class=""><span class="num">13</span></td><td class=""><span class="num">14</span></td><td class="ev"><span class="num">15</span></td><td class="we ev"><span class="num">16</span></td></tr><tr><td class="we"><span class="num">17</span></td><td class=""><span class="num">18</span></td><td class=""><span class="num">19</span></td><td class=""><span class="num">20</span></td><td class=""><span class="num">21</span></td><td class="ev"><span class="num">22</span></td><td class="we ev"><span class="num">23</span></td></tr><tr><td class="we ev"><span class="num">24</span></td><td class="ev"><span class="num">25</span></td><td class="ev"><span class="num">26</span></td><td class=""><span class="num">27</span></td><td class=""><span class="num">28</span></td><td class="ev"><span class="num">29</span></td><td class="we ev"><span class="num">30</span></td></tr><tr><td class="we"><span class="num">31</span></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty we"></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="5" data-ei="0" data-field="d" value="1-6" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="5" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Winter Holiday Vacation</textarea><input class="ev-tag" data-idx="5" data-ei="0" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="5" data-ei="0" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="5" data-ei="1" data-field="d" value="7" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="5" data-ei="1" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Back to school and after school resume. PS 1:1, F&amp;P, Letterland student evaluations</textarea><input class="ev-tag" data-idx="5" data-ei="1" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="5" data-ei="1" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="5" data-ei="2" data-field="d" value="9" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="5" data-ei="2" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Reyes Magos roscas and chocolate milk</textarea><input class="ev-tag" data-idx="5" data-ei="2" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="5" data-ei="2" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="5" data-ei="3" data-field="d" value="12" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="5" data-ei="3" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Academic after school begins. Predicted grades for universities due</textarea><input class="ev-tag" data-idx="5" data-ei="3" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="5" data-ei="3" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="5" data-ei="4" data-field="d" value="15-16" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="5" data-ei="4" data-field="t" rows="1" placeholder="Event" style="height: 26px;">TOK, EE, CAS Exhibition</textarea><input class="ev-tag" data-idx="5" data-ei="4" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="5" data-ei="4" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="5" data-ei="5" data-field="d" value="22-26" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="5" data-ei="5" data-field="t" rows="1" placeholder="Event" style="height: 26px;">ASOMEX Volleyball HS</textarea><input class="ev-tag" data-idx="5" data-ei="5" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="5" data-ei="5" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="5" data-ei="6" data-field="d" value="29" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="5" data-ei="6" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Last day of 1st term after school classes</textarea><input class="ev-tag" data-idx="5" data-ei="6" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="5" data-ei="6" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="5" data-ei="7" data-field="d" value="29-30" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="5" data-ei="7" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Lower School Art Fair (details TBD)</textarea><input class="ev-tag" data-idx="5" data-ei="7" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="5" data-ei="7" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="5" data-ei="8" data-field="d" value="30" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="5" data-ei="8" data-field="t" rows="1" placeholder="Event" style="height: 43px;">In service, 12 pm dismissal for students. MS Geography Fair</textarea><input class="ev-tag" data-idx="5" data-ei="8" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="5" data-ei="8" title="Remove">×</button></div><button class="add-ev" data-idx="5">+ Add event</button></div></div><div class="month" data-idx="6"><div class="month-head"><span class="month-name">February <span class="yr">2027</span></span><input class="attr" data-idx="6" data-field="attr" value="Inquirers" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="empty we"></td><td class=""><span class="num">1</span></td><td class="ev"><span class="num">2</span></td><td class=""><span class="num">3</span></td><td class=""><span class="num">4</span></td><td class=""><span class="num">5</span></td><td class="we ev"><span class="num">6</span></td></tr><tr><td class="we"><span class="num">7</span></td><td class=""><span class="num">8</span></td><td class="ev"><span class="num">9</span></td><td class=""><span class="num">10</span></td><td class="ev"><span class="num">11</span></td><td class="ev"><span class="num">12</span></td><td class="we ev"><span class="num">13</span></td></tr><tr><td class="we"><span class="num">14</span></td><td class=""><span class="num">15</span></td><td class="ev"><span class="num">16</span></td><td class=""><span class="num">17</span></td><td class=""><span class="num">18</span></td><td class=""><span class="num">19</span></td><td class="we"><span class="num">20</span></td></tr><tr><td class="we ev"><span class="num">21</span></td><td class=""><span class="num">22</span></td><td class="ev"><span class="num">23</span></td><td class="ev"><span class="num">24</span></td><td class="ev"><span class="num">25</span></td><td class="ev"><span class="num">26</span></td><td class="we ev"><span class="num">27</span></td></tr><tr><td class="we ev"><span class="num">28</span></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty we"></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="0" data-field="d" value="2" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 26px;">No School for Constitution Day</textarea><input class="ev-tag" data-idx="6" data-ei="0" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="0" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="1" data-field="d" value="6" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="1" data-field="t" rows="1" placeholder="Event" style="height: 26px;">MS Progress Reports due</textarea><input class="ev-tag" data-idx="6" data-ei="1" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="1" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="2" data-field="d" value="9" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="2" data-field="t" rows="1" placeholder="Event" style="height: 26px;">100 Days of School activity, Preschool</textarea><input class="ev-tag" data-idx="6" data-ei="2" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="2" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="3" data-field="d" value="11" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="3" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Coffee Hour Session 3, Santa Fe 7:45 am</textarea><input class="ev-tag" data-idx="6" data-ei="3" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="3" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="4" data-field="d" value="12" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="4" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Coffee Hour Session 3, Carpatos 7:45 am</textarea><input class="ev-tag" data-idx="6" data-ei="4" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="4" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="5" data-field="d" value="13" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="5" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Talent Show Santa Fe</textarea><input class="ev-tag" data-idx="6" data-ei="5" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="5" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="6" data-field="d" value="16" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="6" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Talent Show Carpatos</textarea><input class="ev-tag" data-idx="6" data-ei="6" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="6" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="7" data-field="d" value="21" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="7" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Chess Practice 9-11 am, MS Auditorium (Ponce/Ogazón)</textarea><input class="ev-tag" data-idx="6" data-ei="7" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="7" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="8" data-field="d" value="23-26" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="8" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Fine Arts Week (MHS)</textarea><input class="ev-tag" data-idx="6" data-ei="8" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="8" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="9" data-field="d" value="25" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="9" data-field="t" rows="1" placeholder="Event" style="height: 43px;">MS Soccer game at Cumbres Lomas 4:30 pm (Román)</textarea><input class="ev-tag" data-idx="6" data-ei="9" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="9" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="10" data-field="d" value="27" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="10" data-field="t" rows="1" placeholder="Event" style="height: 26px;">In service, 12 pm dismissal</textarea><input class="ev-tag" data-idx="6" data-ei="10" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="10" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="6" data-ei="11" data-field="d" value="28" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="6" data-ei="11" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Swimming Competition PRINS at WI (Leida/Ponce). Chess Competition at WI (Ogazón)</textarea><input class="ev-tag" data-idx="6" data-ei="11" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="6" data-ei="11" title="Remove">×</button></div><button class="add-ev" data-idx="6">+ Add event</button></div></div><div class="month" data-idx="7"><div class="month-head"><span class="month-name">March <span class="yr">2027</span></span><input class="attr" data-idx="7" data-field="attr" value="Principled" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="empty we"></td><td class=""><span class="num">1</span></td><td class="ev"><span class="num">2</span></td><td class="ev"><span class="num">3</span></td><td class="ev"><span class="num">4</span></td><td class="ev"><span class="num">5</span></td><td class="we ev"><span class="num">6</span></td></tr><tr><td class="we"><span class="num">7</span></td><td class=""><span class="num">8</span></td><td class="ev"><span class="num">9</span></td><td class="ev"><span class="num">10</span></td><td class="ev"><span class="num">11</span></td><td class="ev"><span class="num">12</span></td><td class="we ev"><span class="num">13</span></td></tr><tr><td class="we ev"><span class="num">14</span></td><td class="ev"><span class="num">15</span></td><td class="ev"><span class="num">16</span></td><td class="ev"><span class="num">17</span></td><td class="ev"><span class="num">18</span></td><td class="ev"><span class="num">19</span></td><td class="we ev"><span class="num">20</span></td></tr><tr><td class="we ev"><span class="num">21</span></td><td class="ev"><span class="num">22</span></td><td class="ev"><span class="num">23</span></td><td class="ev"><span class="num">24</span></td><td class="ev"><span class="num">25</span></td><td class="ev"><span class="num">26</span></td><td class="we ev"><span class="num">27</span></td></tr><tr><td class="we"><span class="num">28</span></td><td class=""><span class="num">29</span></td><td class="ev"><span class="num">30</span></td><td class="ev"><span class="num">31</span></td><td class="empty"></td><td class="empty"></td><td class="empty we"></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="0" data-field="d" value="2-6" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Read Across America, Book Fair Lower School &amp; MS. Spelling Bee Lower School</textarea><input class="ev-tag" data-idx="7" data-ei="0" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="0" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="1" data-field="d" value="2-4" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="1" data-field="t" rows="1" placeholder="Event" style="height: 26px;">11th Collaborative Science Project (CSP)</textarea><input class="ev-tag" data-idx="7" data-ei="1" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="1" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="2" data-field="d" value="6" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="2" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Trimester 2 ends, Algebraix grades due, Toddle closes</textarea><input class="ev-tag" data-idx="7" data-ei="2" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="2" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="3" data-field="d" value="9-18" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="3" data-field="t" rows="1" placeholder="Event" style="height: 26px;">10th-11th midterm exams</textarea><input class="ev-tag" data-idx="7" data-ei="3" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="3" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="4" data-field="d" value="9-10" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="4" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Santa Fe Yearbook pictures, gala uniform</textarea><input class="ev-tag" data-idx="7" data-ei="4" data-field="tag" value="Yearbook" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="4" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="5" data-field="d" value="11" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="5" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Carpatos Yearbook pictures, gala uniform. Lower School Toddle Reports</textarea><input class="ev-tag" data-idx="7" data-ei="5" data-field="tag" value="Yearbook" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="5" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="6" data-field="d" value="13" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="6" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Board meeting</textarea><input class="ev-tag" data-idx="7" data-ei="6" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="6" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="7" data-field="d" value="13-15" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="7" data-field="t" rows="1" placeholder="Event" style="height: 26px;">ASOMEX Chess Tournament, hosted at Westhill</textarea><input class="ev-tag" data-idx="7" data-ei="7" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="7" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="8" data-field="d" value="16" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="8" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Benito Juárez's Birthday, No School</textarea><input class="ev-tag" data-idx="7" data-ei="8" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="8" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="9" data-field="d" value="17" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="9" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Gold coins for St Patrick's Day, Lower School. Free dress in green</textarea><input class="ev-tag" data-idx="7" data-ei="9" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="9" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="10" data-field="d" value="17-26" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="10" data-field="t" rows="1" placeholder="Event" style="height: 26px;">12th mock exams</textarea><input class="ev-tag" data-idx="7" data-ei="10" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="10" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="11" data-field="d" value="20-22" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="11" data-field="t" rows="1" placeholder="Event" style="height: 26px;">IIMUN</textarea><input class="ev-tag" data-idx="7" data-ei="11" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="11" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="12" data-field="d" value="20" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="12" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Teacher expectations due (teachers)</textarea><input class="ev-tag" data-idx="7" data-ei="12" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="12" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="13" data-field="d" value="23" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="13" data-field="t" rows="1" placeholder="Event" style="height: 43px;">World Down Syndrome Day, mismatched socks. Lower School presentation</textarea><input class="ev-tag" data-idx="7" data-ei="13" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="13" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="14" data-field="d" value="23-26" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="14" data-field="t" rows="1" placeholder="Event" style="height: 26px;">MHS Swimming Gala</textarea><input class="ev-tag" data-idx="7" data-ei="14" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="14" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="15" data-field="d" value="25-26" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="15" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Lower School Parent Teacher Conferences (specialist clubs)</textarea><input class="ev-tag" data-idx="7" data-ei="15" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="15" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="16" data-field="d" value="26" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="16" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Academic afterschool ends</textarea><input class="ev-tag" data-idx="7" data-ei="16" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="16" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="17" data-field="d" value="27" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="17" data-field="t" rows="1" placeholder="Event" style="height: 43px;">In service, No School. Teacher expectations due (admin)</textarea><input class="ev-tag" data-idx="7" data-ei="17" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="17" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="7" data-ei="18" data-field="d" value="30-31" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="7" data-ei="18" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Spring Break begins (through April 3)</textarea><input class="ev-tag" data-idx="7" data-ei="18" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="7" data-ei="18" title="Remove">×</button></div><button class="add-ev" data-idx="7">+ Add event</button></div></div><div class="month" data-idx="8"><div class="month-head"><span class="month-name">April <span class="yr">2027</span></span><input class="attr" data-idx="8" data-field="attr" value="Reflective" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="empty we"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class=""><span class="num">1</span></td><td class=""><span class="num">2</span></td><td class="we"><span class="num">3</span></td></tr><tr><td class="we"><span class="num">4</span></td><td class=""><span class="num">5</span></td><td class="ev"><span class="num">6</span></td><td class="ev"><span class="num">7</span></td><td class="ev"><span class="num">8</span></td><td class=""><span class="num">9</span></td><td class="we"><span class="num">10</span></td></tr><tr><td class="we"><span class="num">11</span></td><td class=""><span class="num">12</span></td><td class=""><span class="num">13</span></td><td class=""><span class="num">14</span></td><td class=""><span class="num">15</span></td><td class=""><span class="num">16</span></td><td class="we ev"><span class="num">17</span></td></tr><tr><td class="we ev"><span class="num">18</span></td><td class=""><span class="num">19</span></td><td class=""><span class="num">20</span></td><td class=""><span class="num">21</span></td><td class="ev"><span class="num">22</span></td><td class="ev"><span class="num">23</span></td><td class="we"><span class="num">24</span></td></tr><tr><td class="we"><span class="num">25</span></td><td class=""><span class="num">26</span></td><td class="ev"><span class="num">27</span></td><td class="ev"><span class="num">28</span></td><td class="ev"><span class="num">29</span></td><td class="ev"><span class="num">30</span></td><td class="empty we"></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="8" data-ei="0" data-field="d" value="6" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="8" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 61px;">12th predicted grades. HS Progress Reports. World Autism Day, wear blue. Easter Egg hunt Lower School</textarea><input class="ev-tag" data-idx="8" data-ei="0" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="8" data-ei="0" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="8" data-ei="1" data-field="d" value="7" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="8" data-ei="1" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Make-up pictures (Yearbook). Coffee Hour Session 4 Carpatos 7:45 am</textarea><input class="ev-tag" data-idx="8" data-ei="1" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="8" data-ei="1" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="8" data-ei="2" data-field="d" value="8" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="8" data-ei="2" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Coffee Hour Session 4, Santa Fe 7:45 am</textarea><input class="ev-tag" data-idx="8" data-ei="2" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="8" data-ei="2" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="8" data-ei="3" data-field="d" value="17" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="8" data-ei="3" data-field="t" rows="1" placeholder="Event" style="height: 26px;">General Westhill Day rehearsal</textarea><input class="ev-tag" data-idx="8" data-ei="3" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="8" data-ei="3" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="8" data-ei="4" data-field="d" value="18" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="8" data-ei="4" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Westhill Day</textarea><input class="ev-tag" data-idx="8" data-ei="4" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="8" data-ei="4" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="8" data-ei="5" data-field="d" value="22" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="8" data-ei="5" data-field="t" rows="1" placeholder="Event" style="height: 26px;">World Earth Day</textarea><input class="ev-tag" data-idx="8" data-ei="5" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="8" data-ei="5" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="8" data-ei="6" data-field="d" value="23" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="8" data-ei="6" data-field="t" rows="1" placeholder="Event" style="height: 26px;">World Book Day. 12th Grade Graduation Photo</textarea><input class="ev-tag" data-idx="8" data-ei="6" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="8" data-ei="6" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="8" data-ei="7" data-field="d" value="27-30" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="8" data-ei="7" data-field="t" rows="1" placeholder="Event" style="height: 26px;">PE Skills day for Lower School</textarea><input class="ev-tag" data-idx="8" data-ei="7" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="8" data-ei="7" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="8" data-ei="8" data-field="d" value="28" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="8" data-ei="8" data-field="t" rows="1" placeholder="Event" style="height: 43px;">IB DP exams begin, 12th. National Honor Society and NJHS Ceremony</textarea><input class="ev-tag" data-idx="8" data-ei="8" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="8" data-ei="8" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="8" data-ei="9" data-field="d" value="30" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="8" data-ei="9" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Children's Day</textarea><input class="ev-tag" data-idx="8" data-ei="9" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="8" data-ei="9" title="Remove">×</button></div><button class="add-ev" data-idx="8">+ Add event</button></div></div><div class="month" data-idx="9"><div class="month-head"><span class="month-name">May <span class="yr">2027</span></span><input class="attr" data-idx="9" data-field="attr" value="Caring" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="empty we"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="we ev"><span class="num">1</span></td></tr><tr><td class="we ev"><span class="num">2</span></td><td class="ev"><span class="num">3</span></td><td class="ev"><span class="num">4</span></td><td class="ev"><span class="num">5</span></td><td class=""><span class="num">6</span></td><td class=""><span class="num">7</span></td><td class="we"><span class="num">8</span></td></tr><tr><td class="we"><span class="num">9</span></td><td class=""><span class="num">10</span></td><td class="ev"><span class="num">11</span></td><td class="ev"><span class="num">12</span></td><td class="ev"><span class="num">13</span></td><td class="ev"><span class="num">14</span></td><td class="we ev"><span class="num">15</span></td></tr><tr><td class="we"><span class="num">16</span></td><td class=""><span class="num">17</span></td><td class="ev"><span class="num">18</span></td><td class="ev"><span class="num">19</span></td><td class="ev"><span class="num">20</span></td><td class="ev"><span class="num">21</span></td><td class="we ev"><span class="num">22</span></td></tr><tr><td class="we ev"><span class="num">23</span></td><td class="ev"><span class="num">24</span></td><td class="ev"><span class="num">25</span></td><td class="ev"><span class="num">26</span></td><td class="ev"><span class="num">27</span></td><td class="ev"><span class="num">28</span></td><td class="we ev"><span class="num">29</span></td></tr><tr><td class="we ev"><span class="num">30</span></td><td class=""><span class="num">31</span></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty we"></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="9" data-ei="0" data-field="d" value="1-5" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="9" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Mexican Labor Day &amp; Battle of Puebla, No School</textarea><input class="ev-tag" data-idx="9" data-ei="0" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="9" data-ei="0" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="9" data-ei="1" data-field="d" value="11" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="9" data-ei="1" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Mother's Day Celebration, Lower School</textarea><input class="ev-tag" data-idx="9" data-ei="1" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="9" data-ei="1" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="9" data-ei="2" data-field="d" value="11-15" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="9" data-ei="2" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Teacher Appreciation Week. Upper Elementary Swim Gala (Santa Fe)</textarea><input class="ev-tag" data-idx="9" data-ei="2" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="9" data-ei="2" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="9" data-ei="3" data-field="d" value="15" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="9" data-ei="3" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Teacher's Day celebration</textarea><input class="ev-tag" data-idx="9" data-ei="3" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="9" data-ei="3" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="9" data-ei="4" data-field="d" value="18-29" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="9" data-ei="4" data-field="t" rows="1" placeholder="Event" style="height: 26px;">End-of-Year MAP Testing</textarea><input class="ev-tag" data-idx="9" data-ei="4" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="9" data-ei="4" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="9" data-ei="5" data-field="d" value="20" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="9" data-ei="5" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Final IB exams end, 12th</textarea><input class="ev-tag" data-idx="9" data-ei="5" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="9" data-ei="5" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="9" data-ei="6" data-field="d" value="21" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="9" data-ei="6" data-field="t" rows="1" placeholder="Event" style="height: 26px;">DP informational session with 10th grade parents</textarea><input class="ev-tag" data-idx="9" data-ei="6" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="9" data-ei="6" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="9" data-ei="7" data-field="d" value="22" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="9" data-ei="7" data-field="t" rows="1" placeholder="Event" style="height: 43px;">MYP Personal Project Exhibition. MS Progress Reports due</textarea><input class="ev-tag" data-idx="9" data-ei="7" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="9" data-ei="7" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="9" data-ei="8" data-field="d" value="25-27" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="9" data-ei="8" data-field="t" rows="1" placeholder="Event" style="height: 26px;">10th Collaborative Sciences Project (CSP)</textarea><input class="ev-tag" data-idx="9" data-ei="8" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="9" data-ei="8" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="9" data-ei="9" data-field="d" value="29" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="9" data-ei="9" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Science Fair MS. In service, 12 pm dismissal</textarea><input class="ev-tag" data-idx="9" data-ei="9" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="9" data-ei="9" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="9" data-ei="10" data-field="d" value="30" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="9" data-ei="10" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Back to Sports Day (Parents)</textarea><input class="ev-tag" data-idx="9" data-ei="10" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="9" data-ei="10" title="Remove">×</button></div><button class="add-ev" data-idx="9">+ Add event</button></div></div><div class="month" data-idx="10"><div class="month-head"><span class="month-name">June <span class="yr">2027</span></span><input class="attr" data-idx="10" data-field="attr" value="Risk-Takers" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="empty we"></td><td class="empty"></td><td class="ev"><span class="num">1</span></td><td class="ev"><span class="num">2</span></td><td class="ev"><span class="num">3</span></td><td class="ev"><span class="num">4</span></td><td class="we ev"><span class="num">5</span></td></tr><tr><td class="we ev"><span class="num">6</span></td><td class="ev"><span class="num">7</span></td><td class="ev"><span class="num">8</span></td><td class="ev"><span class="num">9</span></td><td class="ev"><span class="num">10</span></td><td class="ev"><span class="num">11</span></td><td class="we ev"><span class="num">12</span></td></tr><tr><td class="we"><span class="num">13</span></td><td class=""><span class="num">14</span></td><td class="ev"><span class="num">15</span></td><td class="ev"><span class="num">16</span></td><td class="ev"><span class="num">17</span></td><td class="ev"><span class="num">18</span></td><td class="we ev"><span class="num">19</span></td></tr><tr><td class="we"><span class="num">20</span></td><td class=""><span class="num">21</span></td><td class="ev"><span class="num">22</span></td><td class="ev"><span class="num">23</span></td><td class="ev"><span class="num">24</span></td><td class="ev"><span class="num">25</span></td><td class="we ev"><span class="num">26</span></td></tr><tr><td class="we"><span class="num">27</span></td><td class=""><span class="num">28</span></td><td class="ev"><span class="num">29</span></td><td class="ev"><span class="num">30</span></td><td class="empty"></td><td class="empty"></td><td class="empty we"></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="0" data-field="d" value="1-12" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 61px;">10th final exams, 11th mock exams, 12th final projects/exams. MAP Growth Success Celebration (incl. Zearn)</textarea><input class="ev-tag" data-idx="10" data-ei="0" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="0" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="1" data-field="d" value="5" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="1" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Lower School and 12th Trimester 3 ends, Algebraix grades due, Toddle closes. Junior Prom (8th-9th)</textarea><input class="ev-tag" data-idx="10" data-ei="1" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="1" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="2" data-field="d" value="8" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="2" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Changing of the flag, Lower School</textarea><input class="ev-tag" data-idx="10" data-ei="2" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="2" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="3" data-field="d" value="10" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="3" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Lower School Toddle reports</textarea><input class="ev-tag" data-idx="10" data-ei="3" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="3" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="4" data-field="d" value="12" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="4" data-field="t" rows="1" placeholder="Event" style="height: 43px;">12th Grade Graduation. 6th-11th Trimester 3 ends, grades due. 9th grade graduation</textarea><input class="ev-tag" data-idx="10" data-ei="4" data-field="tag" value="Yearbook &amp; Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="4" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="5" data-field="d" value="15" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="5" data-field="t" rows="1" placeholder="Event" style="height: 43px;">House Winner during flag ceremony. Internal PYPx present to community</textarea><input class="ev-tag" data-idx="10" data-ei="5" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="5" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="6" data-field="d" value="15-19" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="6" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Pre-Diploma classes, 10th</textarea><input class="ev-tag" data-idx="10" data-ei="6" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="6" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="7" data-field="d" value="16" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="7" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Santa Fe Kinder and Grade 5 Graduation and PYPX</textarea><input class="ev-tag" data-idx="10" data-ei="7" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="7" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="8" data-field="d" value="18" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="8" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Carpatos Kinder and Grade 5 Graduation and PYPX</textarea><input class="ev-tag" data-idx="10" data-ei="8" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="8" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="9" data-field="d" value="19" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="9" data-field="t" rows="1" placeholder="Event" style="height: 61px;">Father's Day, Family Picnic, Yearbook, Report Cards. Carpatos Grade 3 Play. Final teacher expectations due</textarea><input class="ev-tag" data-idx="10" data-ei="9" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="9" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="10" data-field="d" value="22" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="10" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Drama Club Production</textarea><input class="ev-tag" data-idx="10" data-ei="10" data-field="tag" value="Marketing" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="10" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="11" data-field="d" value="23" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="11" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Santa Fe Grade 3 Play</textarea><input class="ev-tag" data-idx="10" data-ei="11" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="11" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="12" data-field="d" value="24-25" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="12" data-field="t" rows="1" placeholder="Event" style="height: 26px;">PTC, Lower School</textarea><input class="ev-tag" data-idx="10" data-ei="12" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="12" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="13" data-field="d" value="25" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="13" data-field="t" rows="1" placeholder="Event" style="height: 43px;">Last day of after school. Last day of school for students</textarea><input class="ev-tag" data-idx="10" data-ei="13" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="13" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="14" data-field="d" value="26" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="14" data-field="t" rows="1" placeholder="Event" style="height: 26px;">In service</textarea><input class="ev-tag" data-idx="10" data-ei="14" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="14" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="15" data-field="d" value="29" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="15" data-field="t" rows="1" placeholder="Event" style="height: 26px;">First day of Summer Camp</textarea><input class="ev-tag" data-idx="10" data-ei="15" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="15" title="Remove">×</button></div><div class="ev-row"><input class="ev-day" data-idx="10" data-ei="16" data-field="d" value="30" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="10" data-ei="16" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Last day for teachers</textarea><input class="ev-tag" data-idx="10" data-ei="16" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="10" data-ei="16" title="Remove">×</button></div><button class="add-ev" data-idx="10">+ Add event</button></div></div><div class="month" data-idx="11"><div class="month-head"><span class="month-name">July <span class="yr">2027</span></span><input class="attr" data-idx="11" data-field="attr" value="" placeholder="Profile" spellcheck="false"></div><table class="cal"><thead><tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr></thead><tbody><tr><td class="empty we"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class=""><span class="num">1</span></td><td class=""><span class="num">2</span></td><td class="we"><span class="num">3</span></td></tr><tr><td class="we"><span class="num">4</span></td><td class=""><span class="num">5</span></td><td class=""><span class="num">6</span></td><td class=""><span class="num">7</span></td><td class=""><span class="num">8</span></td><td class=""><span class="num">9</span></td><td class="we"><span class="num">10</span></td></tr><tr><td class="we"><span class="num">11</span></td><td class=""><span class="num">12</span></td><td class=""><span class="num">13</span></td><td class=""><span class="num">14</span></td><td class=""><span class="num">15</span></td><td class=""><span class="num">16</span></td><td class="we"><span class="num">17</span></td></tr><tr><td class="we"><span class="num">18</span></td><td class=""><span class="num">19</span></td><td class=""><span class="num">20</span></td><td class=""><span class="num">21</span></td><td class=""><span class="num">22</span></td><td class=""><span class="num">23</span></td><td class="we"><span class="num">24</span></td></tr><tr><td class="we"><span class="num">25</span></td><td class=""><span class="num">26</span></td><td class=""><span class="num">27</span></td><td class=""><span class="num">28</span></td><td class=""><span class="num">29</span></td><td class=""><span class="num">30</span></td><td class="we"><span class="num">31</span></td></tr></tbody></table><div class="events"><div class="ev-row"><input class="ev-day" data-idx="11" data-ei="0" data-field="d" value="" placeholder="–" spellcheck="false"><textarea class="ev-text" data-idx="11" data-ei="0" data-field="t" rows="1" placeholder="Event" style="height: 26px;">Summer Camp (add dates and activities here)</textarea><input class="ev-tag" data-idx="11" data-ei="0" data-field="tag" value="" placeholder="" spellcheck="false"><button class="ev-del" data-idx="11" data-ei="0" title="Remove">×</button></div><button class="add-ev" data-idx="11">+ Add event</button></div></div></div>
 
   <div class="print-foot">Westhill Institute — Go Wildcats!</div>
 </div>
 
 <!-- Saved data lives here. Edit through the page, not by hand. -->
-<script id="seed" type="application/json">
-{
-  "version": 1,
+<script id="seed" type="application/json">{
+  "version": 4,
   "schoolName": "Westhill Institute",
   "tagline": "Go Wildcats!",
   "startYear": 2026,
   "months": [
-    { "m": 7, "attr": "", "events": [
-      { "d": "4", "t": "First day back for the leadership team", "tag": "" },
-      { "d": "11", "t": "Meet with new teachers. SEP Directors return", "tag": "" },
-      { "d": "13", "t": "First day back for all teachers, 8:00 am at the University Auditorium, Santa Fe Campus", "tag": "" },
-      { "d": "18-20", "t": "In-campus training and prep", "tag": "" },
-      { "d": "21", "t": "Santa Fe Back to School 9 am-12 pm (Lower, Middle, High). After-school sample classes", "tag": "Marketing" },
-      { "d": "22", "t": "Carpatos Back to School 9 am-12 pm. After-school sample classes", "tag": "Marketing" },
-      { "d": "23", "t": "SAT Testing", "tag": "" },
-      { "d": "25", "t": "First day of school. House winners and House competition presentation (Ponce). Lower School diagnostics, 1:1, phonics. Student ID pictures Carpatos", "tag": "Yearbook & Marketing" },
-      { "d": "27", "t": "Coffee Morning for new families 8:30 am, Carpatos Lower School", "tag": "Marketing" },
-      { "d": "28", "t": "Coffee Morning for new families 7:30 am Santa Fe Middle/High, then 9 am SF Lower", "tag": "Marketing" },
-      { "d": "28-29", "t": "Language B placement exams, MS", "tag": "" }
-    ]},
-    { "m": 8, "attr": "Open Minded", "events": [
-      { "d": "1", "t": "After-school trials begin (2 weeks). Student ID pictures SF Lower/Middle. Swimming after school begins. House winners presentation (Ponce)", "tag": "Yearbook & Marketing" },
-      { "d": "2-12", "t": "MAP Testing", "tag": "" },
-      { "d": "3", "t": "Student ID pictures, High School", "tag": "Marketing" },
-      { "d": "5", "t": "MYP meeting for parents. DP meeting for 12th grade. Summer reading Bingo reward, Lower School", "tag": "Marketing" },
-      { "d": "8", "t": "Academic after school classes begin. Grito Mexican Independence, Lower School flag ceremony", "tag": "" },
-      { "d": "10", "t": "PTA Room parents elections, Santa Fe 8:00 am", "tag": "" },
-      { "d": "11", "t": "PTA Room parents elections, Carpatos 8:00 am", "tag": "" },
-      { "d": "12", "t": "Last day for MAP testing. Lower & Middle free dress, Mexican traditional clothing", "tag": "Marketing" },
-      { "d": "13", "t": "SAT Testing", "tag": "" },
-      { "d": "15-16", "t": "Mexican Independence Day, No School", "tag": "" },
-      { "d": "17", "t": "Recreational after school classes begin", "tag": "" },
-      { "d": "18", "t": "Coffee Hour Session 1, Carpatos 7:45 am", "tag": "Marketing" },
-      { "d": "19", "t": "Coffee Hour Session 1, Santa Fe 7:45 am. National Earthquake Drill", "tag": "Marketing" },
-      { "d": "22-26", "t": "School-Wide Wildcat Week", "tag": "" },
-      { "d": "29", "t": "Westhill College Fair. Yearbook and group pictures, Carpatos", "tag": "Yearbook & Marketing" },
-      { "d": "30", "t": "Student Council elections Lower & MS. Winter Festival info sent home. Make-up student ID, Carpatos", "tag": "Marketing" }
-    ]},
-    { "m": 9, "attr": "Balanced", "events": [
-      { "d": "", "t": "Month focus: Formal observations", "tag": "" },
-      { "d": "1", "t": "Yom Kippur", "tag": "" },
-      { "d": "2", "t": "National No Bullying Day, wear blue", "tag": "" },
-      { "d": "3", "t": "MAP Growth Success Celebration. Board Meeting 10:00 am", "tag": "Marketing" },
-      { "d": "4", "t": "SAT Testing", "tag": "" },
-      { "d": "6", "t": "Yearbook and group pictures Santa Fe (coordinate with Foto Vega). Make-up student ID SF. PYP meeting for parents Carpatos 8 am", "tag": "Yearbook & Marketing" },
-      { "d": "7", "t": "PYP meeting for parents, Santa Fe 8 am", "tag": "Marketing" },
-      { "d": "10", "t": "MHS Progress Reports due", "tag": "" },
-      { "d": "13-15", "t": "Schoolwide PE events, Carpatos", "tag": "" },
-      { "d": "16-18", "t": "IBAMEX, No School for students", "tag": "" },
-      { "d": "23", "t": "Carpatos Drill 9:30 am", "tag": "" },
-      { "d": "24", "t": "SF Drill 9:30 am", "tag": "" },
-      { "d": "27-29", "t": "Swimming open class for parents (SF Lower)", "tag": "" },
-      { "d": "30", "t": "Dress in pink for Breast Cancer Awareness, Carpatos. Halloween SF Lower/Middle. MS Halloween competition", "tag": "Marketing" },
-      { "d": "31", "t": "Halloween Carpatos. ASOMEX Swimming (31-2). Dress in pink for Breast Cancer Awareness, Santa Fe", "tag": "Yearbook & Marketing" }
-    ]},
-    { "m": 10, "attr": "Knowledgeable", "events": [
-      { "d": "3", "t": "Día de Muertos: chocolate milk and Pan de Muerto", "tag": "Yearbook" },
-      { "d": "5", "t": "Coffee Hour Session 2 Carpatos 7:45 am. 9 am meeting with Javier re MS", "tag": "Marketing" },
-      { "d": "6", "t": "Coffee Hour Session 2 Santa Fe 7:45 am. 5th grade parent meeting with Javier 9 am. 5th grade visit MS", "tag": "Marketing" },
-      { "d": "7", "t": "Coffee Hour Session 2 MHS 7:45 am. 9th grade parent meeting 9 am. Algebraix grades due, last day of Trimester 1, Toddle closes", "tag": "Marketing" },
-      { "d": "8", "t": "SAT Testing", "tag": "" },
-      { "d": "10", "t": "Lower School Toddle Reports. Mexican Revolution presentation, Lower School flag ceremony", "tag": "Marketing" },
-      { "d": "12", "t": "Winter Festival rehearsal permission slips sent home (Carpatos)", "tag": "" },
-      { "d": "13-15", "t": "Camp Nature for 6th & 8th", "tag": "" },
-      { "d": "17", "t": "Mexican Revolution, No School", "tag": "" },
-      { "d": "18", "t": "Carpatos Drill 10:00 am", "tag": "" },
-      { "d": "19", "t": "SF Drill 10:00 am. Lower School Science Fair both campuses (Carpatos 8-10 am; SF 12-2 pm)", "tag": "Yearbook & Marketing" },
-      { "d": "20", "t": "Academic after school ends", "tag": "" },
-      { "d": "20-21", "t": "PTCs Lower School", "tag": "" },
-      { "d": "21", "t": "Thanksgiving Shared Lunch", "tag": "Yearbook & Marketing" },
-      { "d": "24-28", "t": "Thanksgiving Week, No School", "tag": "" }
-    ]},
-    { "m": 11, "attr": "Communicators", "events": [
-      { "d": "1-5", "t": "Book Fair, Carpatos. Parents invited for reading/holiday tradition sharing. Book reports with librarians", "tag": "" },
-      { "d": "3-15", "t": "Mock Exams, HS", "tag": "" },
-      { "d": "4-5", "t": "Spelling Bee, MS", "tag": "Marketing" },
-      { "d": "5", "t": "Winter Festival for the Institute", "tag": "" },
-      { "d": "6", "t": "SAT Testing", "tag": "" },
-      { "d": "8-12", "t": "Book Fair, Santa Fe. Parents invited for reading/holiday tradition sharing", "tag": "" },
-      { "d": "9", "t": "Carpatos Karate Exam", "tag": "" },
-      { "d": "10", "t": "Winterfest rehearsal", "tag": "" },
-      { "d": "11", "t": "Winterfest Carpatos. Santa Fe Karate Exam", "tag": "Yearbook & Marketing" },
-      { "d": "12", "t": "Winterfest Santa Fe. Teacher expectations due (teachers)", "tag": "Yearbook & Marketing" },
-      { "d": "15-19", "t": "Holiday Wildcat Week", "tag": "" },
-      { "d": "15", "t": "Gift baskets for staff during flag ceremony (MHS & SF Lower together)", "tag": "Marketing" },
-      { "d": "16", "t": "Santa's visit and Christmas presentation, Lower School 10 am Auditorium", "tag": "" },
-      { "d": "17", "t": "End of Semester 1, High School grades due. Carpatos Drill 8:30 am", "tag": "" },
-      { "d": "18", "t": "Last day of after school classes. SF Drill 8:00 am", "tag": "" },
-      { "d": "19", "t": "Piñatas. Teacher expectations due (admin)", "tag": "Marketing" },
-      { "d": "22-31", "t": "Winter Holiday Vacation", "tag": "" }
-    ]},
-    { "m": 0, "attr": "Thinkers", "events": [
-      { "d": "1-6", "t": "Winter Holiday Vacation", "tag": "" },
-      { "d": "7", "t": "Back to school and after school resume. PS 1:1, F&P, Letterland student evaluations", "tag": "" },
-      { "d": "9", "t": "Reyes Magos roscas and chocolate milk", "tag": "Marketing" },
-      { "d": "12", "t": "Academic after school begins. Predicted grades for universities due", "tag": "" },
-      { "d": "15-16", "t": "TOK, EE, CAS Exhibition", "tag": "" },
-      { "d": "22-26", "t": "ASOMEX Volleyball HS", "tag": "" },
-      { "d": "29", "t": "Last day of 1st term after school classes", "tag": "" },
-      { "d": "29-30", "t": "Lower School Art Fair (details TBD)", "tag": "Yearbook & Marketing" },
-      { "d": "30", "t": "In service, 12 pm dismissal for students. MS Geography Fair", "tag": "Marketing" }
-    ]},
-    { "m": 1, "attr": "Inquirers", "events": [
-      { "d": "2", "t": "No School for Constitution Day", "tag": "" },
-      { "d": "6", "t": "MS Progress Reports due", "tag": "" },
-      { "d": "9", "t": "100 Days of School activity, Preschool", "tag": "Marketing" },
-      { "d": "11", "t": "Coffee Hour Session 3, Santa Fe 7:45 am", "tag": "" },
-      { "d": "12", "t": "Coffee Hour Session 3, Carpatos 7:45 am", "tag": "" },
-      { "d": "13", "t": "Talent Show Santa Fe", "tag": "Yearbook & Marketing" },
-      { "d": "16", "t": "Talent Show Carpatos", "tag": "Yearbook & Marketing" },
-      { "d": "21", "t": "Chess Practice 9-11 am, MS Auditorium (Ponce/Ogazón)", "tag": "" },
-      { "d": "23-26", "t": "Fine Arts Week (MHS)", "tag": "Yearbook & Marketing" },
-      { "d": "25", "t": "MS Soccer game at Cumbres Lomas 4:30 pm (Román)", "tag": "" },
-      { "d": "27", "t": "In service, 12 pm dismissal", "tag": "" },
-      { "d": "28", "t": "Swimming Competition PRINS at WI (Leida/Ponce). Chess Competition at WI (Ogazón)", "tag": "" }
-    ]},
-    { "m": 2, "attr": "Principled", "events": [
-      { "d": "2-6", "t": "Read Across America, Book Fair Lower School & MS. Spelling Bee Lower School", "tag": "Marketing" },
-      { "d": "2-4", "t": "11th Collaborative Science Project (CSP)", "tag": "" },
-      { "d": "6", "t": "Trimester 2 ends, Algebraix grades due, Toddle closes", "tag": "" },
-      { "d": "9-18", "t": "10th-11th midterm exams", "tag": "" },
-      { "d": "9-10", "t": "Santa Fe Yearbook pictures, gala uniform", "tag": "Yearbook" },
-      { "d": "11", "t": "Carpatos Yearbook pictures, gala uniform. Lower School Toddle Reports", "tag": "Yearbook" },
-      { "d": "13", "t": "Board meeting", "tag": "" },
-      { "d": "13-15", "t": "ASOMEX Chess Tournament, hosted at Westhill", "tag": "Yearbook & Marketing" },
-      { "d": "16", "t": "Benito Juárez's Birthday, No School", "tag": "" },
-      { "d": "17", "t": "Gold coins for St Patrick's Day, Lower School. Free dress in green", "tag": "" },
-      { "d": "17-26", "t": "12th mock exams", "tag": "" },
-      { "d": "20-22", "t": "IIMUN", "tag": "" },
-      { "d": "20", "t": "Teacher expectations due (teachers)", "tag": "" },
-      { "d": "23", "t": "World Down Syndrome Day, mismatched socks. Lower School presentation", "tag": "Marketing" },
-      { "d": "23-26", "t": "MHS Swimming Gala", "tag": "Marketing" },
-      { "d": "25-26", "t": "Lower School Parent Teacher Conferences (specialist clubs)", "tag": "" },
-      { "d": "26", "t": "Academic afterschool ends", "tag": "" },
-      { "d": "27", "t": "In service, No School. Teacher expectations due (admin)", "tag": "" },
-      { "d": "30-31", "t": "Spring Break begins (through April 3)", "tag": "" }
-    ]},
-    { "m": 3, "attr": "Reflective", "events": [
-      { "d": "6", "t": "12th predicted grades. HS Progress Reports. World Autism Day, wear blue. Easter Egg hunt Lower School", "tag": "" },
-      { "d": "7", "t": "Make-up pictures (Yearbook). Coffee Hour Session 4 Carpatos 7:45 am", "tag": "Yearbook & Marketing" },
-      { "d": "8", "t": "Coffee Hour Session 4, Santa Fe 7:45 am", "tag": "" },
-      { "d": "17", "t": "General Westhill Day rehearsal", "tag": "Marketing" },
-      { "d": "18", "t": "Westhill Day", "tag": "Yearbook & Marketing" },
-      { "d": "22", "t": "World Earth Day", "tag": "" },
-      { "d": "23", "t": "World Book Day. 12th Grade Graduation Photo", "tag": "" },
-      { "d": "27-30", "t": "PE Skills day for Lower School", "tag": "Marketing" },
-      { "d": "28", "t": "IB DP exams begin, 12th. National Honor Society and NJHS Ceremony", "tag": "Yearbook & Marketing" },
-      { "d": "30", "t": "Children's Day", "tag": "Yearbook & Marketing" }
-    ]},
-    { "m": 4, "attr": "Caring", "events": [
-      { "d": "1-5", "t": "Mexican Labor Day & Battle of Puebla, No School", "tag": "" },
-      { "d": "11", "t": "Mother's Day Celebration, Lower School", "tag": "Yearbook & Marketing" },
-      { "d": "11-15", "t": "Teacher Appreciation Week. Upper Elementary Swim Gala (Santa Fe)", "tag": "Marketing" },
-      { "d": "15", "t": "Teacher's Day celebration", "tag": "" },
-      { "d": "18-29", "t": "End-of-Year MAP Testing", "tag": "" },
-      { "d": "20", "t": "Final IB exams end, 12th", "tag": "" },
-      { "d": "21", "t": "DP informational session with 10th grade parents", "tag": "" },
-      { "d": "22", "t": "MYP Personal Project Exhibition. MS Progress Reports due", "tag": "Marketing" },
-      { "d": "25-27", "t": "10th Collaborative Sciences Project (CSP)", "tag": "Marketing" },
-      { "d": "29", "t": "Science Fair MS. In service, 12 pm dismissal", "tag": "Yearbook & Marketing" },
-      { "d": "30", "t": "Back to Sports Day (Parents)", "tag": "Marketing" }
-    ]},
-    { "m": 5, "attr": "Risk-Takers", "events": [
-      { "d": "1-12", "t": "10th final exams, 11th mock exams, 12th final projects/exams. MAP Growth Success Celebration (incl. Zearn)", "tag": "" },
-      { "d": "5", "t": "Lower School and 12th Trimester 3 ends, Algebraix grades due, Toddle closes. Junior Prom (8th-9th)", "tag": "" },
-      { "d": "8", "t": "Changing of the flag, Lower School", "tag": "" },
-      { "d": "10", "t": "Lower School Toddle reports", "tag": "" },
-      { "d": "12", "t": "12th Grade Graduation. 6th-11th Trimester 3 ends, grades due. 9th grade graduation", "tag": "Yearbook & Marketing" },
-      { "d": "15", "t": "House Winner during flag ceremony. Internal PYPx present to community", "tag": "Marketing" },
-      { "d": "15-19", "t": "Pre-Diploma classes, 10th", "tag": "" },
-      { "d": "16", "t": "Santa Fe Kinder and Grade 5 Graduation and PYPX", "tag": "Marketing" },
-      { "d": "18", "t": "Carpatos Kinder and Grade 5 Graduation and PYPX", "tag": "Marketing" },
-      { "d": "19", "t": "Father's Day, Family Picnic, Yearbook, Report Cards. Carpatos Grade 3 Play. Final teacher expectations due", "tag": "Marketing" },
-      { "d": "22", "t": "Drama Club Production", "tag": "Marketing" },
-      { "d": "23", "t": "Santa Fe Grade 3 Play", "tag": "" },
-      { "d": "24-25", "t": "PTC, Lower School", "tag": "" },
-      { "d": "25", "t": "Last day of after school. Last day of school for students", "tag": "" },
-      { "d": "26", "t": "In service", "tag": "" },
-      { "d": "29", "t": "First day of Summer Camp", "tag": "" },
-      { "d": "30", "t": "Last day for teachers", "tag": "" }
-    ]},
-    { "m": 6, "attr": "", "events": [
-      { "d": "", "t": "Summer Camp (add dates and activities here)", "tag": "" }
-    ]}
+    {
+      "m": 7,
+      "attr": "",
+      "events": [
+        {
+          "d": "5",
+          "t": "First day back for the leadership team",
+          "tag": ""
+        },
+        {
+          "d": "10",
+          "t": "Meet with new teachers. SEP Directors return",
+          "tag": ""
+        },
+        {
+          "d": "13",
+          "t": "First day back for all teachers, 8:00 am at the University Auditorium, Santa Fe Campus",
+          "tag": ""
+        },
+        {
+          "d": "17-21",
+          "t": "In-campus training and prep!",
+          "tag": ""
+        },
+        {
+          "d": "19",
+          "t": "9:00 am - 12:00 pm Santa Fe Lower School Back to School\nAfter-school Sample classes\t\t\t\t\t",
+          "tag": "Marketing"
+        },
+        {
+          "d": "20",
+          "t": "9:00 am - 12:00 pm Carpatos Lower School Back to School\nAfter-school Sample classes\t\t\t\t\t",
+          "tag": "Marketing"
+        },
+        {
+          "d": "21",
+          "t": "8:00 am - 9:00 am Middle School welcome to new students and 6th graders - University Auditorium, followed by MS building tour\n9:00 am - 10:00 am High School welcome to new students and 10th graders - University Auditorium, followed by HS building tour",
+          "tag": ""
+        },
+        {
+          "d": "24",
+          "t": "First day of school.    \nLower School - Diagnostics, 1:1, phonics evalutions begin\nHouses during PE for new students \nTentative - Afterschool Presentation 8 am - Santa Fe",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "25",
+          "t": "Tentative - Afterschool Presentation 8 am - Carpatos ",
+          "tag": "Marketing"
+        },
+        {
+          "d": "26",
+          "t": "Coffee Morning for new families 8:00 am - Carpatos Lower School. ",
+          "tag": "Marketing"
+        },
+        {
+          "d": "27",
+          "t": "Coffee Morning for new families, 7:30 am - Santa Fe Lower, Middle and High School (University Auditorium)",
+          "tag": ""
+        }
+      ]
+    },
+    {
+      "m": 8,
+      "attr": "Open Minded",
+      "events": [
+        {
+          "d": "1",
+          "t": "After-school trials begin (2 weeks). Student ID pictures SF Lower/Middle. Swimming after school begins. House winners presentation (Ponce)",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "2-12",
+          "t": "MAP Testing",
+          "tag": ""
+        },
+        {
+          "d": "3",
+          "t": "Student ID pictures, High School",
+          "tag": "Marketing"
+        },
+        {
+          "d": "5",
+          "t": "MYP meeting for parents. DP meeting for 12th grade. Summer reading Bingo reward, Lower School",
+          "tag": "Marketing"
+        },
+        {
+          "d": "8",
+          "t": "Academic after school classes begin. Grito Mexican Independence, Lower School flag ceremony",
+          "tag": ""
+        },
+        {
+          "d": "10",
+          "t": "PTA Room parents elections, Santa Fe 8:00 am",
+          "tag": ""
+        },
+        {
+          "d": "11",
+          "t": "PTA Room parents elections, Carpatos 8:00 am",
+          "tag": ""
+        },
+        {
+          "d": "12",
+          "t": "Last day for MAP testing. Lower & Middle free dress, Mexican traditional clothing",
+          "tag": "Marketing"
+        },
+        {
+          "d": "13",
+          "t": "SAT Testing",
+          "tag": ""
+        },
+        {
+          "d": "15-16",
+          "t": "Mexican Independence Day, No School",
+          "tag": ""
+        },
+        {
+          "d": "17",
+          "t": "Recreational after school classes begin",
+          "tag": ""
+        },
+        {
+          "d": "18",
+          "t": "Coffee Hour Session 1, Carpatos 7:45 am",
+          "tag": "Marketing"
+        },
+        {
+          "d": "19",
+          "t": "Coffee Hour Session 1, Santa Fe 7:45 am. National Earthquake Drill",
+          "tag": "Marketing"
+        },
+        {
+          "d": "22-26",
+          "t": "School-Wide Wildcat Week",
+          "tag": ""
+        },
+        {
+          "d": "29",
+          "t": "Westhill College Fair. Yearbook and group pictures, Carpatos",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "30",
+          "t": "Student Council elections Lower & MS. Winter Festival info sent home. Make-up student ID, Carpatos",
+          "tag": "Marketing"
+        }
+      ]
+    },
+    {
+      "m": 9,
+      "attr": "Balanced",
+      "events": [
+        {
+          "d": "",
+          "t": "Month focus: Formal observations",
+          "tag": ""
+        },
+        {
+          "d": "1",
+          "t": "Yom Kippur",
+          "tag": ""
+        },
+        {
+          "d": "2",
+          "t": "National No Bullying Day, wear blue",
+          "tag": ""
+        },
+        {
+          "d": "3",
+          "t": "MAP Growth Success Celebration. Board Meeting 10:00 am",
+          "tag": "Marketing"
+        },
+        {
+          "d": "4",
+          "t": "SAT Testing",
+          "tag": ""
+        },
+        {
+          "d": "6",
+          "t": "Yearbook and group pictures Santa Fe (coordinate with Foto Vega). Make-up student ID SF. PYP meeting for parents Carpatos 8 am",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "7",
+          "t": "PYP meeting for parents, Santa Fe 8 am",
+          "tag": "Marketing"
+        },
+        {
+          "d": "10",
+          "t": "MHS Progress Reports due",
+          "tag": ""
+        },
+        {
+          "d": "13-15",
+          "t": "Schoolwide PE events, Carpatos",
+          "tag": ""
+        },
+        {
+          "d": "16-18",
+          "t": "IBAMEX, No School for students",
+          "tag": ""
+        },
+        {
+          "d": "23",
+          "t": "Carpatos Drill 9:30 am",
+          "tag": ""
+        },
+        {
+          "d": "24",
+          "t": "SF Drill 9:30 am",
+          "tag": ""
+        },
+        {
+          "d": "27-29",
+          "t": "Swimming open class for parents (SF Lower)",
+          "tag": ""
+        },
+        {
+          "d": "30",
+          "t": "Dress in pink for Breast Cancer Awareness, Carpatos. Halloween SF Lower/Middle. MS Halloween competition",
+          "tag": "Marketing"
+        },
+        {
+          "d": "31",
+          "t": "Halloween Carpatos. ASOMEX Swimming (31-2). Dress in pink for Breast Cancer Awareness, Santa Fe",
+          "tag": "Yearbook & Marketing"
+        }
+      ]
+    },
+    {
+      "m": 10,
+      "attr": "Knowledgeable",
+      "events": [
+        {
+          "d": "3",
+          "t": "Día de Muertos: chocolate milk and Pan de Muerto",
+          "tag": "Yearbook"
+        },
+        {
+          "d": "5",
+          "t": "Coffee Hour Session 2 Carpatos 7:45 am. 9 am meeting with Javier re MS",
+          "tag": "Marketing"
+        },
+        {
+          "d": "6",
+          "t": "Coffee Hour Session 2 Santa Fe 7:45 am. 5th grade parent meeting with Javier 9 am. 5th grade visit MS",
+          "tag": "Marketing"
+        },
+        {
+          "d": "7",
+          "t": "Coffee Hour Session 2 MHS 7:45 am. 9th grade parent meeting 9 am. Algebraix grades due, last day of Trimester 1, Toddle closes",
+          "tag": "Marketing"
+        },
+        {
+          "d": "8",
+          "t": "SAT Testing",
+          "tag": ""
+        },
+        {
+          "d": "10",
+          "t": "Lower School Toddle Reports. Mexican Revolution presentation, Lower School flag ceremony",
+          "tag": "Marketing"
+        },
+        {
+          "d": "12",
+          "t": "Winter Festival rehearsal permission slips sent home (Carpatos)",
+          "tag": ""
+        },
+        {
+          "d": "13-15",
+          "t": "Camp Nature for 6th & 8th",
+          "tag": ""
+        },
+        {
+          "d": "17",
+          "t": "Mexican Revolution, No School",
+          "tag": ""
+        },
+        {
+          "d": "18",
+          "t": "Carpatos Drill 10:00 am",
+          "tag": ""
+        },
+        {
+          "d": "19",
+          "t": "SF Drill 10:00 am. Lower School Science Fair both campuses (Carpatos 8-10 am; SF 12-2 pm)",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "20",
+          "t": "Academic after school ends",
+          "tag": ""
+        },
+        {
+          "d": "20-21",
+          "t": "PTCs Lower School",
+          "tag": ""
+        },
+        {
+          "d": "21",
+          "t": "Thanksgiving Shared Lunch",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "24-28",
+          "t": "Thanksgiving Week, No School",
+          "tag": ""
+        }
+      ]
+    },
+    {
+      "m": 11,
+      "attr": "Communicators",
+      "events": [
+        {
+          "d": "1-5",
+          "t": "Book Fair, Carpatos. Parents invited for reading/holiday tradition sharing. Book reports with librarians",
+          "tag": ""
+        },
+        {
+          "d": "3-15",
+          "t": "Mock Exams, HS",
+          "tag": ""
+        },
+        {
+          "d": "4-5",
+          "t": "Spelling Bee, MS",
+          "tag": "Marketing"
+        },
+        {
+          "d": "5",
+          "t": "Winter Festival for the Institute",
+          "tag": ""
+        },
+        {
+          "d": "6",
+          "t": "SAT Testing",
+          "tag": ""
+        },
+        {
+          "d": "8-12",
+          "t": "Book Fair, Santa Fe. Parents invited for reading/holiday tradition sharing",
+          "tag": ""
+        },
+        {
+          "d": "9",
+          "t": "Carpatos Karate Exam",
+          "tag": ""
+        },
+        {
+          "d": "10",
+          "t": "Winterfest rehearsal",
+          "tag": ""
+        },
+        {
+          "d": "11",
+          "t": "Winterfest Carpatos. Santa Fe Karate Exam",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "12",
+          "t": "Winterfest Santa Fe. Teacher expectations due (teachers)",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "15-19",
+          "t": "Holiday Wildcat Week",
+          "tag": ""
+        },
+        {
+          "d": "15",
+          "t": "Gift baskets for staff during flag ceremony (MHS & SF Lower together)",
+          "tag": "Marketing"
+        },
+        {
+          "d": "16",
+          "t": "Santa's visit and Christmas presentation, Lower School 10 am Auditorium",
+          "tag": ""
+        },
+        {
+          "d": "17",
+          "t": "End of Semester 1, High School grades due. Carpatos Drill 8:30 am",
+          "tag": ""
+        },
+        {
+          "d": "18",
+          "t": "Last day of after school classes. SF Drill 8:00 am",
+          "tag": ""
+        },
+        {
+          "d": "19",
+          "t": "Piñatas. Teacher expectations due (admin)",
+          "tag": "Marketing"
+        },
+        {
+          "d": "22-31",
+          "t": "Winter Holiday Vacation",
+          "tag": ""
+        }
+      ]
+    },
+    {
+      "m": 0,
+      "attr": "Thinkers",
+      "events": [
+        {
+          "d": "1-6",
+          "t": "Winter Holiday Vacation",
+          "tag": ""
+        },
+        {
+          "d": "7",
+          "t": "Back to school and after school resume. PS 1:1, F&P, Letterland student evaluations",
+          "tag": ""
+        },
+        {
+          "d": "9",
+          "t": "Reyes Magos roscas and chocolate milk",
+          "tag": "Marketing"
+        },
+        {
+          "d": "12",
+          "t": "Academic after school begins. Predicted grades for universities due",
+          "tag": ""
+        },
+        {
+          "d": "15-16",
+          "t": "TOK, EE, CAS Exhibition",
+          "tag": ""
+        },
+        {
+          "d": "22-26",
+          "t": "ASOMEX Volleyball HS",
+          "tag": ""
+        },
+        {
+          "d": "29",
+          "t": "Last day of 1st term after school classes",
+          "tag": ""
+        },
+        {
+          "d": "29-30",
+          "t": "Lower School Art Fair (details TBD)",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "30",
+          "t": "In service, 12 pm dismissal for students. MS Geography Fair",
+          "tag": "Marketing"
+        }
+      ]
+    },
+    {
+      "m": 1,
+      "attr": "Inquirers",
+      "events": [
+        {
+          "d": "2",
+          "t": "No School for Constitution Day",
+          "tag": ""
+        },
+        {
+          "d": "6",
+          "t": "MS Progress Reports due",
+          "tag": ""
+        },
+        {
+          "d": "9",
+          "t": "100 Days of School activity, Preschool",
+          "tag": "Marketing"
+        },
+        {
+          "d": "11",
+          "t": "Coffee Hour Session 3, Santa Fe 7:45 am",
+          "tag": ""
+        },
+        {
+          "d": "12",
+          "t": "Coffee Hour Session 3, Carpatos 7:45 am",
+          "tag": ""
+        },
+        {
+          "d": "13",
+          "t": "Talent Show Santa Fe",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "16",
+          "t": "Talent Show Carpatos",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "21",
+          "t": "Chess Practice 9-11 am, MS Auditorium (Ponce/Ogazón)",
+          "tag": ""
+        },
+        {
+          "d": "23-26",
+          "t": "Fine Arts Week (MHS)",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "25",
+          "t": "MS Soccer game at Cumbres Lomas 4:30 pm (Román)",
+          "tag": ""
+        },
+        {
+          "d": "27",
+          "t": "In service, 12 pm dismissal",
+          "tag": ""
+        },
+        {
+          "d": "28",
+          "t": "Swimming Competition PRINS at WI (Leida/Ponce). Chess Competition at WI (Ogazón)",
+          "tag": ""
+        }
+      ]
+    },
+    {
+      "m": 2,
+      "attr": "Principled",
+      "events": [
+        {
+          "d": "2-6",
+          "t": "Read Across America, Book Fair Lower School & MS. Spelling Bee Lower School",
+          "tag": "Marketing"
+        },
+        {
+          "d": "2-4",
+          "t": "11th Collaborative Science Project (CSP)",
+          "tag": ""
+        },
+        {
+          "d": "6",
+          "t": "Trimester 2 ends, Algebraix grades due, Toddle closes",
+          "tag": ""
+        },
+        {
+          "d": "9-18",
+          "t": "10th-11th midterm exams",
+          "tag": ""
+        },
+        {
+          "d": "9-10",
+          "t": "Santa Fe Yearbook pictures, gala uniform",
+          "tag": "Yearbook"
+        },
+        {
+          "d": "11",
+          "t": "Carpatos Yearbook pictures, gala uniform. Lower School Toddle Reports",
+          "tag": "Yearbook"
+        },
+        {
+          "d": "13",
+          "t": "Board meeting",
+          "tag": ""
+        },
+        {
+          "d": "13-15",
+          "t": "ASOMEX Chess Tournament, hosted at Westhill",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "16",
+          "t": "Benito Juárez's Birthday, No School",
+          "tag": ""
+        },
+        {
+          "d": "17",
+          "t": "Gold coins for St Patrick's Day, Lower School. Free dress in green",
+          "tag": ""
+        },
+        {
+          "d": "17-26",
+          "t": "12th mock exams",
+          "tag": ""
+        },
+        {
+          "d": "20-22",
+          "t": "IIMUN",
+          "tag": ""
+        },
+        {
+          "d": "20",
+          "t": "Teacher expectations due (teachers)",
+          "tag": ""
+        },
+        {
+          "d": "23",
+          "t": "World Down Syndrome Day, mismatched socks. Lower School presentation",
+          "tag": "Marketing"
+        },
+        {
+          "d": "23-26",
+          "t": "MHS Swimming Gala",
+          "tag": "Marketing"
+        },
+        {
+          "d": "25-26",
+          "t": "Lower School Parent Teacher Conferences (specialist clubs)",
+          "tag": ""
+        },
+        {
+          "d": "26",
+          "t": "Academic afterschool ends",
+          "tag": ""
+        },
+        {
+          "d": "27",
+          "t": "In service, No School. Teacher expectations due (admin)",
+          "tag": ""
+        },
+        {
+          "d": "30-31",
+          "t": "Spring Break begins (through April 3)",
+          "tag": ""
+        }
+      ]
+    },
+    {
+      "m": 3,
+      "attr": "Reflective",
+      "events": [
+        {
+          "d": "6",
+          "t": "12th predicted grades. HS Progress Reports. World Autism Day, wear blue. Easter Egg hunt Lower School",
+          "tag": ""
+        },
+        {
+          "d": "7",
+          "t": "Make-up pictures (Yearbook). Coffee Hour Session 4 Carpatos 7:45 am",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "8",
+          "t": "Coffee Hour Session 4, Santa Fe 7:45 am",
+          "tag": ""
+        },
+        {
+          "d": "17",
+          "t": "General Westhill Day rehearsal",
+          "tag": "Marketing"
+        },
+        {
+          "d": "18",
+          "t": "Westhill Day",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "22",
+          "t": "World Earth Day",
+          "tag": ""
+        },
+        {
+          "d": "23",
+          "t": "World Book Day. 12th Grade Graduation Photo",
+          "tag": ""
+        },
+        {
+          "d": "27-30",
+          "t": "PE Skills day for Lower School",
+          "tag": "Marketing"
+        },
+        {
+          "d": "28",
+          "t": "IB DP exams begin, 12th. National Honor Society and NJHS Ceremony",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "30",
+          "t": "Children's Day",
+          "tag": "Yearbook & Marketing"
+        }
+      ]
+    },
+    {
+      "m": 4,
+      "attr": "Caring",
+      "events": [
+        {
+          "d": "1-5",
+          "t": "Mexican Labor Day & Battle of Puebla, No School",
+          "tag": ""
+        },
+        {
+          "d": "11",
+          "t": "Mother's Day Celebration, Lower School",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "11-15",
+          "t": "Teacher Appreciation Week. Upper Elementary Swim Gala (Santa Fe)",
+          "tag": "Marketing"
+        },
+        {
+          "d": "15",
+          "t": "Teacher's Day celebration",
+          "tag": ""
+        },
+        {
+          "d": "18-29",
+          "t": "End-of-Year MAP Testing",
+          "tag": ""
+        },
+        {
+          "d": "20",
+          "t": "Final IB exams end, 12th",
+          "tag": ""
+        },
+        {
+          "d": "21",
+          "t": "DP informational session with 10th grade parents",
+          "tag": ""
+        },
+        {
+          "d": "22",
+          "t": "MYP Personal Project Exhibition. MS Progress Reports due",
+          "tag": "Marketing"
+        },
+        {
+          "d": "25-27",
+          "t": "10th Collaborative Sciences Project (CSP)",
+          "tag": "Marketing"
+        },
+        {
+          "d": "29",
+          "t": "Science Fair MS. In service, 12 pm dismissal",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "30",
+          "t": "Back to Sports Day (Parents)",
+          "tag": "Marketing"
+        }
+      ]
+    },
+    {
+      "m": 5,
+      "attr": "Risk-Takers",
+      "events": [
+        {
+          "d": "1-12",
+          "t": "10th final exams, 11th mock exams, 12th final projects/exams. MAP Growth Success Celebration (incl. Zearn)",
+          "tag": ""
+        },
+        {
+          "d": "5",
+          "t": "Lower School and 12th Trimester 3 ends, Algebraix grades due, Toddle closes. Junior Prom (8th-9th)",
+          "tag": ""
+        },
+        {
+          "d": "8",
+          "t": "Changing of the flag, Lower School",
+          "tag": ""
+        },
+        {
+          "d": "10",
+          "t": "Lower School Toddle reports",
+          "tag": ""
+        },
+        {
+          "d": "12",
+          "t": "12th Grade Graduation. 6th-11th Trimester 3 ends, grades due. 9th grade graduation",
+          "tag": "Yearbook & Marketing"
+        },
+        {
+          "d": "15",
+          "t": "House Winner during flag ceremony. Internal PYPx present to community",
+          "tag": "Marketing"
+        },
+        {
+          "d": "15-19",
+          "t": "Pre-Diploma classes, 10th",
+          "tag": ""
+        },
+        {
+          "d": "16",
+          "t": "Santa Fe Kinder and Grade 5 Graduation and PYPX",
+          "tag": "Marketing"
+        },
+        {
+          "d": "18",
+          "t": "Carpatos Kinder and Grade 5 Graduation and PYPX",
+          "tag": "Marketing"
+        },
+        {
+          "d": "19",
+          "t": "Father's Day, Family Picnic, Yearbook, Report Cards. Carpatos Grade 3 Play. Final teacher expectations due",
+          "tag": "Marketing"
+        },
+        {
+          "d": "22",
+          "t": "Drama Club Production",
+          "tag": "Marketing"
+        },
+        {
+          "d": "23",
+          "t": "Santa Fe Grade 3 Play",
+          "tag": ""
+        },
+        {
+          "d": "24-25",
+          "t": "PTC, Lower School",
+          "tag": ""
+        },
+        {
+          "d": "25",
+          "t": "Last day of after school. Last day of school for students",
+          "tag": ""
+        },
+        {
+          "d": "26",
+          "t": "In service",
+          "tag": ""
+        },
+        {
+          "d": "29",
+          "t": "First day of Summer Camp",
+          "tag": ""
+        },
+        {
+          "d": "30",
+          "t": "Last day for teachers",
+          "tag": ""
+        }
+      ]
+    },
+    {
+      "m": 6,
+      "attr": "",
+      "events": [
+        {
+          "d": "",
+          "t": "Summer Camp (add dates and activities here)",
+          "tag": ""
+        }
+      ]
+    }
   ]
-}
-</script>
+}</script>
 
 <script>
 (function(){
@@ -675,5 +1343,6 @@
   setStatus(storageOK?'Autosaved in this browser':'Edits are not being saved in this browser', !storageOK);
 })();
 </script>
-</body>
-</html>
+
+
+<!----comment node----></body></html>
