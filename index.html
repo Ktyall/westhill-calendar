@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Westhill Institute Academic Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#16263F;
+    --navy-2:#22324d;
+    --gold:#A9791E;
+    --gold-soft:#F3E8CB;
+    --paper:#FBFAF6;
+    --card:#ffffff;
+    --line:#E3DECF;
+    --ink:#1c1c1a;
+    --muted:#726c5d;
+    --weekend:#F7F3E9;
+    --danger:#9c3b2e;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:28px 22px 80px;}
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;
+    gap:18px;border-bottom:3px solid var(--navy);padding-bottom:16px;margin-bottom:6px;
+  }
+  .brand{display:flex;flex-direction:column;gap:2px;}
+  .brand .eyebrow{
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;
+  }
+  .school-name{
+    font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:34px;line-height:1;color:var(--navy);
+  }
+  .tagline{font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.02em;}
+  .yearblock{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+  .yearlabel{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:600;color:var(--navy);}
+  .yearnav{display:flex;align-items:center;gap:8px;}
+  .yearnav button{
+    width:30px;height:30px;border-radius:7px;border:1px solid var(--line);background:#fff;
+    cursor:pointer;font-size:15px;color:var(--navy);line-height:1;
+  }
+  .yearnav button:hover{background:var(--gold-soft);border-color:var(--gold);}
+
+  /* ---------- Toolbar ---------- */
+  .toolbar{
+    display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:14px 0 26px;
+  }
+  .hint{font-size:12.5px;color:var(--muted);margin-right:auto;}
+  .hint b{color:var(--navy);}
+  .btn{
+    border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:8px;
+    padding:9px 15px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;
+  }
+  .btn:hover{background:var(--navy-2);}
+  .btn.ghost{background:#fff;color:var(--navy);}
+  .btn.ghost:hover{background:var(--gold-soft);border-color:var(--gold);}
+  .btn.warn{background:#fff;color:var(--danger);border-color:#e0c9c3;}
+  .btn.warn:hover{background:#f7ece9;}
+
+  /* ---------- Month grid layout ---------- */
+  .months{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  @media (max-width:760px){.months{grid-template-columns:1fr;}}
+  .month{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .month-head{
+    display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+    padding:14px 16px 10px;border-bottom:1px solid var(--line);
+  }
+  .month-name{font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:600;color:var(--navy);}
+  .month-name .yr{color:var(--muted);font-weight:500;font-size:15px;}
+  .attr{
+    display:inline-block;border:1px solid var(--gold);color:var(--gold);background:#fff;
+    border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.04em;
+    padding:3px 4px;text-transform:uppercase;min-width:70px;text-align:center;
+  }
+  .attr:focus{outline:none;background:var(--gold-soft);}
+
+  /* calendar table */
+  table.cal{width:100%;border-collapse:collapse;table-layout:fixed;}
+  table.cal th{
+    font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);
+    text-transform:uppercase;padding:7px 0 5px;text-align:center;
+  }
+  table.cal td{
+    height:34px;text-align:center;vertical-align:middle;font-size:12.5px;color:var(--ink);
+    border-top:1px solid #f0ece1;position:relative;
+  }
+  table.cal td.we{background:var(--weekend);}
+  table.cal td .num{display:inline-block;line-height:1;}
+  table.cal td.ev{font-weight:700;color:var(--navy);}
+  table.cal td.ev::after{
+    content:"";position:absolute;left:50%;bottom:5px;transform:translateX(-50%);
+    width:4px;height:4px;border-radius:50%;background:var(--gold);
+  }
+  table.cal td.empty{color:transparent;}
+
+  /* events list */
+  .events{padding:8px 12px 12px;}
+  .ev-row{
+    display:grid;grid-template-columns:42px 1fr auto;gap:8px;align-items:start;
+    padding:5px 4px;border-radius:7px;
+  }
+  .ev-row:hover{background:#faf8f1;}
+  .ev-day{
+    font-size:12px;font-weight:700;color:var(--navy);text-align:center;border:1px solid transparent;
+    background:transparent;border-radius:6px;padding:4px 2px;font-family:inherit;width:100%;
+  }
+  .ev-text{
+    font-size:12.5px;line-height:1.4;color:var(--ink);border:1px solid transparent;background:transparent;
+    border-radius:6px;padding:4px 6px;width:100%;resize:none;overflow:hidden;font-family:inherit;
+  }
+  .ev-tag{
+    font-size:10px;font-weight:700;color:var(--gold);border:1px solid transparent;background:transparent;
+    border-radius:6px;padding:4px 4px;width:118px;text-align:right;font-family:inherit;
+  }
+  .ev-day:hover,.ev-text:hover,.ev-tag:hover,.attr:hover{border-color:var(--line);}
+  .ev-day:focus,.ev-text:focus,.ev-tag:focus{
+    outline:none;border-color:var(--gold);background:#fffdf6;color:var(--ink);
+  }
+  .ev-del{
+    border:none;background:transparent;color:#c4bdab;cursor:pointer;font-size:16px;line-height:1;
+    padding:2px 4px;align-self:center;
+  }
+  .ev-del:hover{color:var(--danger);}
+  .add-ev{
+    margin-top:6px;border:1px dashed var(--line);background:transparent;color:var(--muted);
+    border-radius:7px;padding:6px 10px;font-size:12px;cursor:pointer;width:100%;font-family:inherit;font-weight:600;
+  }
+  .add-ev:hover{border-color:var(--gold);color:var(--gold);background:#fffdf6;}
+
+  /* editable masthead text */
+  .edit-text{border:1px solid transparent;border-radius:6px;background:transparent;font:inherit;color:inherit;}
+  .edit-text:hover{border-color:var(--line);}
+  .edit-text:focus{outline:none;border-color:var(--gold);background:#fffdf6;}
+  .school-name.edit-text{padding:0 2px;}
+  .tagline.edit-text{padding:1px 3px;}
+
+  .print-foot{display:none;}
+
+  /* ---------- Print ---------- */
+  @media print{
+    @page{margin:12mm;}
+    body{background:#fff;}
+    .wrap{max-width:none;padding:0;}
+    .toolbar,.yearnav,.ev-del,.add-ev{display:none !important;}
+    .hint{display:none;}
+    .months{gap:10px;}
+    .month{border:1px solid #cfcabb;border-radius:8px;}
+    .ev-row:hover,.ev-text:hover,.ev-day:hover,.ev-tag:hover,.attr:hover,.edit-text:hover{border-color:transparent;background:transparent;}
+    table.cal td.we{background:#f4f0e6 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    table.cal td.ev::after{background:#000 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .attr{color:#000;border-color:#999;}
+    .school-name,.month-name,.yearlabel{color:#000;}
+    .print-foot{display:block;text-align:center;font-size:10px;color:#888;margin-top:14px;}
+    .btn{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="brand">
+      <span class="eyebrow">Academic Calendar</span>
+      <span class="school-name edit-text" id="schoolName" contenteditable="true" spellcheck="false">Westhill Institute</span>
+      <span class="tagline edit-text" id="tagline" contenteditable="true" spellcheck="false">Go Wildcats!</span>
+    </div>
+    <div class="yearblock">
+      <span class="yearlabel" id="yearLabel">2026–2027</span>
+      <div class="yearnav">
+        <button id="prevYear" title="Previous school year">◀</button>
+        <span style="font-size:12px;color:var(--muted);font-weight:600;">School year</span>
+        <button id="nextYear" title="Next school year">▶</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <span class="hint"><b>Click any text to edit it.</b> Change the school year and the dates redraw automatically. Save a copy when you're done.</span>
+    <button class="btn" id="printBtn">Print</button>
+    <button class="btn ghost" id="saveBtn">Save a copy</button>
+    <button class="btn warn" id="clearBtn">Clear all events</button>
+  </div>
+
+  <div class="months" id="months"></div>
+
+  <div class="print-foot">Westhill Institute — Go Wildcats!</div>
+</div>
+
+<!-- Saved data lives here. Edit through the page, not by hand. -->
+<script id="seed" type="application/json">
+{
+  "schoolName": "Westhill Institute",
+  "tagline": "Go Wildcats!",
+  "startYear": 2026,
+  "months": [
+    { "m": 7, "attr": "", "events": [
+      { "d": "4", "t": "First day back for the leadership team", "tag": "" },
+      { "d": "11", "t": "Meet with new teachers. SEP Directors return", "tag": "" },
+      { "d": "13", "t": "First day back for all teachers, 8:00 am at the University Auditorium, Santa Fe Campus", "tag": "" },
+      { "d": "18-20", "t": "In-campus training and prep", "tag": "" },
+      { "d": "21", "t": "Santa Fe Back to School 9 am-12 pm (Lower, Middle, High). After-school sample classes", "tag": "Marketing" },
+      { "d": "22", "t": "Carpatos Back to School 9 am-12 pm. After-school sample classes", "tag": "Marketing" },
+      { "d": "23", "t": "SAT Testing", "tag": "" },
+      { "d": "25", "t": "First day of school. House winners and House competition presentation (Ponce). Lower School diagnostics, 1:1, phonics. Student ID pictures Carpatos", "tag": "Yearbook & Marketing" },
+      { "d": "27", "t": "Coffee Morning for new families 8:30 am, Carpatos Lower School", "tag": "Marketing" },
+      { "d": "28", "t": "Coffee Morning for new families 7:30 am Santa Fe Middle/High, then 9 am SF Lower", "tag": "Marketing" },
+      { "d": "28-29", "t": "Language B placement exams, MS", "tag": "" }
+    ]},
+    { "m": 8, "attr": "Open Minded", "events": [
+      { "d": "1", "t": "After-school trials begin (2 weeks). Student ID pictures SF Lower/Middle. Swimming after school begins. House winners presentation (Ponce)", "tag": "Yearbook & Marketing" },
+      { "d": "2-12", "t": "MAP Testing", "tag": "" },
+      { "d": "3", "t": "Student ID pictures, High School", "tag": "Marketing" },
+      { "d": "5", "t": "MYP meeting for parents. DP meeting for 12th grade. Summer reading Bingo reward, Lower School", "tag": "Marketing" },
+      { "d": "8", "t": "Academic after school classes begin. Grito Mexican Independence, Lower School flag ceremony", "tag": "" },
+      { "d": "10", "t": "PTA Room parents elections, Santa Fe 8:00 am", "tag": "" },
+      { "d": "11", "t": "PTA Room parents elections, Carpatos 8:00 am", "tag": "" },
+      { "d": "12", "t": "Last day for MAP testing. Lower & Middle free dress, Mexican traditional clothing", "tag": "Marketing" },
+      { "d": "13", "t": "SAT Testing", "tag": "" },
+      { "d": "15-16", "t": "Mexican Independence Day, No School", "tag": "" },
+      { "d": "17", "t": "Recreational after school classes begin", "tag": "" },
+      { "d": "18", "t": "Coffee Hour Session 1, Carpatos 7:45 am", "tag": "Marketing" },
+      { "d": "19", "t": "Coffee Hour Session 1, Santa Fe 7:45 am. National Earthquake Drill", "tag": "Marketing" },
+      { "d": "22-26", "t": "School-Wide Wildcat Week", "tag": "" },
+      { "d": "29", "t": "Westhill College Fair. Yearbook and group pictures, Carpatos", "tag": "Yearbook & Marketing" },
+      { "d": "30", "t": "Student Council elections Lower & MS. Winter Festival info sent home. Make-up student ID, Carpatos", "tag": "Marketing" }
+    ]},
+    { "m": 9, "attr": "Balanced", "events": [
+      { "d": "", "t": "Month focus: Formal observations", "tag": "" },
+      { "d": "1", "t": "Yom Kippur", "tag": "" },
+      { "d": "2", "t": "National No Bullying Day, wear blue", "tag": "" },
+      { "d": "3", "t": "MAP Growth Success Celebration. Board Meeting 10:00 am", "tag": "Marketing" },
+      { "d": "4", "t": "SAT Testing", "tag": "" },
+      { "d": "6", "t": "Yearbook and group pictures Santa Fe (coordinate with Foto Vega). Make-up student ID SF. PYP meeting for parents Carpatos 8 am", "tag": "Yearbook & Marketing" },
+      { "d": "7", "t": "PYP meeting for parents, Santa Fe 8 am", "tag": "Marketing" },
+      { "d": "10", "t": "MHS Progress Reports due", "tag": "" },
+      { "d": "13-15", "t": "Schoolwide PE events, Carpatos", "tag": "" },
+      { "d": "16-18", "t": "IBAMEX, No School for students", "tag": "" },
+      { "d": "23", "t": "Carpatos Drill 9:30 am", "tag": "" },
+      { "d": "24", "t": "SF Drill 9:30 am", "tag": "" },
+      { "d": "27-29", "t": "Swimming open class for parents (SF Lower)", "tag": "" },
+      { "d": "30", "t": "Dress in pink for Breast Cancer Awareness, Carpatos. Halloween SF Lower/Middle. MS Halloween competition", "tag": "Marketing" },
+      { "d": "31", "t": "Halloween Carpatos. ASOMEX Swimming (31-2). Dress in pink for Breast Cancer Awareness, Santa Fe", "tag": "Yearbook & Marketing" }
+    ]},
+    { "m": 10, "attr": "Knowledgeable", "events": [
+      { "d": "3", "t": "Día de Muertos: chocolate milk and Pan de Muerto", "tag": "Yearbook" },
+      { "d": "5", "t": "Coffee Hour Session 2 Carpatos 7:45 am. 9 am meeting with Javier re MS", "tag": "Marketing" },
+      { "d": "6", "t": "Coffee Hour Session 2 Santa Fe 7:45 am. 5th grade parent meeting with Javier 9 am. 5th grade visit MS", "tag": "Marketing" },
+      { "d": "7", "t": "Coffee Hour Session 2 MHS 7:45 am. 9th grade parent meeting 9 am. Algebraix grades due, last day of Trimester 1, Toddle closes", "tag": "Marketing" },
+      { "d": "8", "t": "SAT Testing", "tag": "" },
+      { "d": "10", "t": "Lower School Toddle Reports. Mexican Revolution presentation, Lower School flag ceremony", "tag": "Marketing" },
+      { "d": "12", "t": "Winter Festival rehearsal permission slips sent home (Carpatos)", "tag": "" },
+      { "d": "13-15", "t": "Camp Nature for 6th & 8th", "tag": "" },
+      { "d": "17", "t": "Mexican Revolution, No School", "tag": "" },
+      { "d": "18", "t": "Carpatos Drill 10:00 am", "tag": "" },
+      { "d": "19", "t": "SF Drill 10:00 am. Lower School Science Fair both campuses (Carpatos 8-10 am; SF 12-2 pm)", "tag": "Yearbook & Marketing" },
+      { "d": "20", "t": "Academic after school ends", "tag": "" },
+      { "d": "20-21", "t": "PTCs Lower School", "tag": "" },
+      { "d": "21", "t": "Thanksgiving Shared Lunch", "tag": "Yearbook & Marketing" },
+      { "d": "24-28", "t": "Thanksgiving Week, No School", "tag": "" }
+    ]},
+    { "m": 11, "attr": "Communicators", "events": [
+      { "d": "1-5", "t": "Book Fair, Carpatos. Parents invited for reading/holiday tradition sharing. Book reports with librarians", "tag": "" },
+      { "d": "3-15", "t": "Mock Exams, HS", "tag": "" },
+      { "d": "4-5", "t": "Spelling Bee, MS", "tag": "Marketing" },
+      { "d": "5", "t": "Winter Festival for the Institute", "tag": "" },
+      { "d": "6", "t": "SAT Testing", "tag": "" },
+      { "d": "8-12", "t": "Book Fair, Santa Fe. Parents invited for reading/holiday tradition sharing", "tag": "" },
+      { "d": "9", "t": "Carpatos Karate Exam", "tag": "" },
+      { "d": "10", "t": "Winterfest rehearsal", "tag": "" },
+      { "d": "11", "t": "Winterfest Carpatos. Santa Fe Karate Exam", "tag": "Yearbook & Marketing" },
+      { "d": "12", "t": "Winterfest Santa Fe. Teacher expectations due (teachers)", "tag": "Yearbook & Marketing" },
+      { "d": "15-19", "t": "Holiday Wildcat Week", "tag": "" },
+      { "d": "15", "t": "Gift baskets for staff during flag ceremony (MHS & SF Lower together)", "tag": "Marketing" },
+      { "d": "16", "t": "Santa's visit and Christmas presentation, Lower School 10 am Auditorium", "tag": "" },
+      { "d": "17", "t": "End of Semester 1, High School grades due. Carpatos Drill 8:30 am", "tag": "" },
+      { "d": "18", "t": "Last day of after school classes. SF Drill 8:00 am", "tag": "" },
+      { "d": "19", "t": "Piñatas. Teacher expectations due (admin)", "tag": "Marketing" },
+      { "d": "22-31", "t": "Winter Holiday Vacation", "tag": "" }
+    ]},
+    { "m": 0, "attr": "Thinkers", "events": [
+      { "d": "1-6", "t": "Winter Holiday Vacation", "tag": "" },
+      { "d": "7", "t": "Back to school and after school resume. PS 1:1, F&P, Letterland student evaluations", "tag": "" },
+      { "d": "9", "t": "Reyes Magos roscas and chocolate milk", "tag": "Marketing" },
+      { "d": "12", "t": "Academic after school begins. Predicted grades for universities due", "tag": "" },
+      { "d": "15-16", "t": "TOK, EE, CAS Exhibition", "tag": "" },
+      { "d": "22-26", "t": "ASOMEX Volleyball HS", "tag": "" },
+      { "d": "29", "t": "Last day of 1st term after school classes", "tag": "" },
+      { "d": "29-30", "t": "Lower School Art Fair (details TBD)", "tag": "Yearbook & Marketing" },
+      { "d": "30", "t": "In service, 12 pm dismissal for students. MS Geography Fair", "tag": "Marketing" }
+    ]},
+    { "m": 1, "attr": "Inquirers", "events": [
+      { "d": "2", "t": "No School for Constitution Day", "tag": "" },
+      { "d": "6", "t": "MS Progress Reports due", "tag": "" },
+      { "d": "9", "t": "100 Days of School activity, Preschool", "tag": "Marketing" },
+      { "d": "11", "t": "Coffee Hour Session 3, Santa Fe 7:45 am", "tag": "" },
+      { "d": "12", "t": "Coffee Hour Session 3, Carpatos 7:45 am", "tag": "" },
+      { "d": "13", "t": "Talent Show Santa Fe", "tag": "Yearbook & Marketing" },
+      { "d": "16", "t": "Talent Show Carpatos", "tag": "Yearbook & Marketing" },
+      { "d": "21", "t": "Chess Practice 9-11 am, MS Auditorium (Ponce/Ogazón)", "tag": "" },
+      { "d": "23-26", "t": "Fine Arts Week (MHS)", "tag": "Yearbook & Marketing" },
+      { "d": "25", "t": "MS Soccer game at Cumbres Lomas 4:30 pm (Román)", "tag": "" },
+      { "d": "27", "t": "In service, 12 pm dismissal", "tag": "" },
+      { "d": "28", "t": "Swimming Competition PRINS at WI (Leida/Ponce). Chess Competition at WI (Ogazón)", "tag": "" }
+    ]},
+    { "m": 2, "attr": "Principled", "events": [
+      { "d": "2-6", "t": "Read Across America, Book Fair Lower School & MS. Spelling Bee Lower School", "tag": "Marketing" },
+      { "d": "2-4", "t": "11th Collaborative Science Project (CSP)", "tag": "" },
+      { "d": "6", "t": "Trimester 2 ends, Algebraix grades due, Toddle closes", "tag": "" },
+      { "d": "9-18", "t": "10th-11th midterm exams", "tag": "" },
+      { "d": "9-10", "t": "Santa Fe Yearbook pictures, gala uniform", "tag": "Yearbook" },
+      { "d": "11", "t": "Carpatos Yearbook pictures, gala uniform. Lower School Toddle Reports", "tag": "Yearbook" },
+      { "d": "13", "t": "Board meeting", "tag": "" },
+      { "d": "13-15", "t": "ASOMEX Chess Tournament, hosted at Westhill", "tag": "Yearbook & Marketing" },
+      { "d": "16", "t": "Benito Juárez's Birthday, No School", "tag": "" },
+      { "d": "17", "t": "Gold coins for St Patrick's Day, Lower School. Free dress in green", "tag": "" },
+      { "d": "17-26", "t": "12th mock exams", "tag": "" },
+      { "d": "20-22", "t": "IIMUN", "tag": "" },
+      { "d": "20", "t": "Teacher expectations due (teachers)", "tag": "" },
+      { "d": "23", "t": "World Down Syndrome Day, mismatched socks. Lower School presentation", "tag": "Marketing" },
+      { "d": "23-26", "t": "MHS Swimming Gala", "tag": "Marketing" },
+      { "d": "25-26", "t": "Lower School Parent Teacher Conferences (specialist clubs)", "tag": "" },
+      { "d": "26", "t": "Academic afterschool ends", "tag": "" },
+      { "d": "27", "t": "In service, No School. Teacher expectations due (admin)", "tag": "" },
+      { "d": "30-31", "t": "Spring Break begins (through April 3)", "tag": "" }
+    ]},
+    { "m": 3, "attr": "Reflective", "events": [
+      { "d": "6", "t": "12th predicted grades. HS Progress Reports. World Autism Day, wear blue. Easter Egg hunt Lower School", "tag": "" },
+      { "d": "7", "t": "Make-up pictures (Yearbook). Coffee Hour Session 4 Carpatos 7:45 am", "tag": "Yearbook & Marketing" },
+      { "d": "8", "t": "Coffee Hour Session 4, Santa Fe 7:45 am", "tag": "" },
+      { "d": "17", "t": "General Westhill Day rehearsal", "tag": "Marketing" },
+      { "d": "18", "t": "Westhill Day", "tag": "Yearbook & Marketing" },
+      { "d": "22", "t": "World Earth Day", "tag": "" },
+      { "d": "23", "t": "World Book Day. 12th Grade Graduation Photo", "tag": "" },
+      { "d": "27-30", "t": "PE Skills day for Lower School", "tag": "Marketing" },
+      { "d": "28", "t": "IB DP exams begin, 12th. National Honor Society and NJHS Ceremony", "tag": "Yearbook & Marketing" },
+      { "d": "30", "t": "Children's Day", "tag": "Yearbook & Marketing" }
+    ]},
+    { "m": 4, "attr": "Caring", "events": [
+      { "d": "1-5", "t": "Mexican Labor Day & Battle of Puebla, No School", "tag": "" },
+      { "d": "11", "t": "Mother's Day Celebration, Lower School", "tag": "Yearbook & Marketing" },
+      { "d": "11-15", "t": "Teacher Appreciation Week. Upper Elementary Swim Gala (Santa Fe)", "tag": "Marketing" },
+      { "d": "15", "t": "Teacher's Day celebration", "tag": "" },
+      { "d": "18-29", "t": "End-of-Year MAP Testing", "tag": "" },
+      { "d": "20", "t": "Final IB exams end, 12th", "tag": "" },
+      { "d": "21", "t": "DP informational session with 10th grade parents", "tag": "" },
+      { "d": "22", "t": "MYP Personal Project Exhibition. MS Progress Reports due", "tag": "Marketing" },
+      { "d": "25-27", "t": "10th Collaborative Sciences Project (CSP)", "tag": "Marketing" },
+      { "d": "29", "t": "Science Fair MS. In service, 12 pm dismissal", "tag": "Yearbook & Marketing" },
+      { "d": "30", "t": "Back to Sports Day (Parents)", "tag": "Marketing" }
+    ]},
+    { "m": 5, "attr": "Risk-Takers", "events": [
+      { "d": "1-12", "t": "10th final exams, 11th mock exams, 12th final projects/exams. MAP Growth Success Celebration (incl. Zearn)", "tag": "" },
+      { "d": "5", "t": "Lower School and 12th Trimester 3 ends, Algebraix grades due, Toddle closes. Junior Prom (8th-9th)", "tag": "" },
+      { "d": "8", "t": "Changing of the flag, Lower School", "tag": "" },
+      { "d": "10", "t": "Lower School Toddle reports", "tag": "" },
+      { "d": "12", "t": "12th Grade Graduation. 6th-11th Trimester 3 ends, grades due. 9th grade graduation", "tag": "Yearbook & Marketing" },
+      { "d": "15", "t": "House Winner during flag ceremony. Internal PYPx present to community", "tag": "Marketing" },
+      { "d": "15-19", "t": "Pre-Diploma classes, 10th", "tag": "" },
+      { "d": "16", "t": "Santa Fe Kinder and Grade 5 Graduation and PYPX", "tag": "Marketing" },
+      { "d": "18", "t": "Carpatos Kinder and Grade 5 Graduation and PYPX", "tag": "Marketing" },
+      { "d": "19", "t": "Father's Day, Family Picnic, Yearbook, Report Cards. Carpatos Grade 3 Play. Final teacher expectations due", "tag": "Marketing" },
+      { "d": "22", "t": "Drama Club Production", "tag": "Marketing" },
+      { "d": "23", "t": "Santa Fe Grade 3 Play", "tag": "" },
+      { "d": "24-25", "t": "PTC, Lower School", "tag": "" },
+      { "d": "25", "t": "Last day of after school. Last day of school for students", "tag": "" },
+      { "d": "26", "t": "In service", "tag": "" },
+      { "d": "29", "t": "First day of Summer Camp", "tag": "" },
+      { "d": "30", "t": "Last day for teachers", "tag": "" }
+    ]},
+    { "m": 6, "attr": "", "events": [
+      { "d": "", "t": "Summer Camp (add dates and activities here)", "tag": "" }
+    ]}
+  ]
+}
+</script>
+
+<script>
+(function(){
+  "use strict";
+
+  var MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var DOW = ["Su","M","Tu","W","Th","F","Sa"];
+
+  var STATE = JSON.parse(document.getElementById('seed').textContent);
+
+  function yearForMonth(mIndex){
+    // Aug(7)..Dec(11) sit in startYear; Jan(0)..Jul(6) sit in startYear+1
+    return mIndex >= 7 ? STATE.startYear : STATE.startYear + 1;
+  }
+
+  function eventDays(events){
+    // returns a Set of day numbers that have an event starting (or spanning) them
+    var set = {};
+    events.forEach(function(ev){
+      if(!ev.d) return;
+      var parts = String(ev.d).split('-').map(function(x){return parseInt(x,10);});
+      if(isNaN(parts[0])) return;
+      var start = parts[0];
+      var end = parts.length>1 && !isNaN(parts[1]) ? parts[1] : start;
+      for(var i=start;i<=end;i++){ set[i]=true; }
+    });
+    return set;
+  }
+
+  function buildGrid(year, mIndex, events){
+    var firstDow = new Date(year, mIndex, 1).getDay();
+    var days = new Date(year, mIndex+1, 0).getDate();
+    var marked = eventDays(events);
+    var html = '<table class="cal"><thead><tr>';
+    for(var d=0; d<7; d++){ html += '<th>'+DOW[d]+'</th>'; }
+    html += '</tr></thead><tbody>';
+    var cell = 0;
+    var totalCells = Math.ceil((firstDow + days)/7)*7;
+    var day = 1;
+    for(var c=0; c<totalCells; c++){
+      if(c % 7 === 0) html += '<tr>';
+      var col = c % 7;
+      var isWeekend = (col === 0 || col === 6);
+      if(c < firstDow || day > days){
+        html += '<td class="empty'+(isWeekend?' we':'')+'"></td>';
+      } else {
+        var cls = isWeekend ? 'we' : '';
+        if(marked[day]) cls += (cls?' ':'') + 'ev';
+        html += '<td class="'+cls+'"><span class="num">'+day+'</span></td>';
+        day++;
+      }
+      if(c % 7 === 6) html += '</tr>';
+    }
+    html += '</tbody></table>';
+    return html;
+  }
+
+  function esc(s){ return (s==null?'':String(s)); }
+
+  function renderMonth(month, idx){
+    var year = yearForMonth(month.m);
+    var el = document.createElement('div');
+    el.className = 'month';
+    el.dataset.idx = idx;
+
+    var head = '<div class="month-head">'
+      + '<span class="month-name">'+MONTH_NAMES[month.m]+' <span class="yr">'+year+'</span></span>'
+      + '<input class="attr" data-idx="'+idx+'" data-field="attr" value="'+esc(month.attr).replace(/"/g,'&quot;')+'" placeholder="Profile" spellcheck="false" />'
+      + '</div>';
+
+    var grid = buildGrid(year, month.m, month.events);
+
+    var rows = '';
+    month.events.forEach(function(ev, ei){
+      rows += '<div class="ev-row">'
+        + '<input class="ev-day" data-idx="'+idx+'" data-ei="'+ei+'" data-field="d" value="'+esc(ev.d).replace(/"/g,'&quot;')+'" placeholder="–" spellcheck="false" />'
+        + '<textarea class="ev-text" data-idx="'+idx+'" data-ei="'+ei+'" data-field="t" rows="1" placeholder="Event">'+esc(ev.t)+'</textarea>'
+        + '<input class="ev-tag" data-idx="'+idx+'" data-ei="'+ei+'" data-field="tag" value="'+esc(ev.tag).replace(/"/g,'&quot;')+'" placeholder="" spellcheck="false" />'
+        + '<button class="ev-del" data-idx="'+idx+'" data-ei="'+ei+'" title="Remove">×</button>'
+        + '</div>';
+    });
+
+    el.innerHTML = head + grid
+      + '<div class="events">' + rows
+      + '<button class="add-ev" data-idx="'+idx+'">+ Add event</button>'
+      + '</div>';
+    return el;
+  }
+
+  function autosize(ta){
+    ta.style.height = 'auto';
+    ta.style.height = (ta.scrollHeight) + 'px';
+  }
+
+  function render(){
+    document.getElementById('yearLabel').textContent = STATE.startYear + '–' + (STATE.startYear+1);
+    document.getElementById('schoolName').textContent = STATE.schoolName;
+    document.getElementById('tagline').textContent = STATE.tagline;
+
+    var container = document.getElementById('months');
+    container.innerHTML = '';
+    STATE.months.forEach(function(month, idx){
+      container.appendChild(renderMonth(month, idx));
+    });
+    // size textareas after they're in the DOM
+    container.querySelectorAll('.ev-text').forEach(autosize);
+  }
+
+  function regridMonth(idx){
+    // redraw just the grid for one month after an event-day edit
+    var monthEl = document.querySelector('.month[data-idx="'+idx+'"]');
+    if(!monthEl) return;
+    var month = STATE.months[idx];
+    var year = yearForMonth(month.m);
+    var oldTable = monthEl.querySelector('table.cal');
+    var temp = document.createElement('div');
+    temp.innerHTML = buildGrid(year, month.m, month.events);
+    monthEl.replaceChild(temp.firstChild, oldTable);
+  }
+
+  // ---- Editing ----
+  var container = document.getElementById('months');
+
+  container.addEventListener('input', function(e){
+    var t = e.target;
+    var idx = t.dataset.idx;
+    if(idx == null) return;
+    var field = t.dataset.field;
+
+    if(t.classList.contains('ev-text')) autosize(t);
+
+    if(field === 'attr'){
+      STATE.months[idx].attr = t.value;
+      return;
+    }
+    var ei = t.dataset.ei;
+    if(ei != null && field){
+      STATE.months[idx].events[ei][field] = t.value;
+      if(field === 'd') regridMonth(idx);
+    }
+  });
+
+  container.addEventListener('click', function(e){
+    var t = e.target;
+    if(t.classList.contains('add-ev')){
+      var idx = t.dataset.idx;
+      STATE.months[idx].events.push({d:'', t:'', tag:''});
+      render();
+      // focus the new row's text field
+      var rows = document.querySelectorAll('.month[data-idx="'+idx+'"] .ev-text');
+      if(rows.length) rows[rows.length-1].focus();
+    }
+    if(t.classList.contains('ev-del')){
+      var i = t.dataset.idx, ei = t.dataset.ei;
+      STATE.months[i].events.splice(ei,1);
+      render();
+    }
+  });
+
+  // masthead editable text
+  document.getElementById('schoolName').addEventListener('input', function(){
+    STATE.schoolName = this.textContent.trim();
+  });
+  document.getElementById('tagline').addEventListener('input', function(){
+    STATE.tagline = this.textContent.trim();
+  });
+
+  // ---- Year navigation ----
+  function shiftYear(delta){
+    STATE.startYear += delta;
+    render();
+  }
+  document.getElementById('prevYear').addEventListener('click', function(){ shiftYear(-1); });
+  document.getElementById('nextYear').addEventListener('click', function(){ shiftYear(1); });
+
+  // ---- Print ----
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+
+  // ---- Clear all events ----
+  document.getElementById('clearBtn').addEventListener('click', function(){
+    if(confirm('Remove every event from all months? The calendar grids and month names stay. This cannot be undone in the page, but your saved copies are unaffected.')){
+      STATE.months.forEach(function(m){ m.events = []; });
+      render();
+    }
+  });
+
+  // ---- Save a copy (self-contained HTML with current data baked in) ----
+  document.getElementById('saveBtn').addEventListener('click', function(){
+    document.getElementById('seed').textContent = JSON.stringify(STATE, null, 2);
+    var doctype = '<!DOCTYPE html>\n';
+    var html = doctype + document.documentElement.outerHTML;
+    var blob = new Blob([html], {type:'text/html'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'Westhill-Calendar-' + STATE.startYear + '-' + (STATE.startYear+1) + '.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
