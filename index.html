@@ -159,6 +159,18 @@
     padding:12px 16px;margin-bottom:20px;font-size:13px;color:var(--navy);font-weight:600;
   }
   .banner .sub{font-weight:500;color:var(--muted);}
+  details.gh-panel{border:1px solid var(--line);border-radius:10px;padding:4px 14px;margin:0 0 26px;background:#fff;}
+  details.gh-panel summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--navy);padding:8px 0;}
+  .gh-grid{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;padding:6px 0 14px;}
+  .gh-field{display:flex;flex-direction:column;gap:3px;}
+  .gh-field label{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  .gh-field input{border:1px solid var(--line);border-radius:7px;padding:7px 9px;font:inherit;font-size:13px;background:#fff;}
+  .gh-field input:focus{outline:none;border-color:var(--gold);}
+  .gh-remember{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);}
+  #ghStatus{font-size:12.5px;font-weight:600;flex-basis:100%;min-height:16px;}
+  .gh-note{font-size:11.5px;color:var(--muted);line-height:1.55;flex-basis:100%;border-top:1px solid var(--line);padding-top:10px;}
+  .gh-note b{color:var(--danger);}
+  @media print{ details.gh-panel{display:none !important;} }
   @media print{ .statusline,.banner{display:none !important;} }
 
   /* ---------- Print ---------- */
@@ -210,6 +222,21 @@
     <input type="file" id="importFile" accept=".json,.html,.htm" style="display:none">
   </div>
   <div class="statusline" id="statusWrap"><span id="saveStatus">Autosaved in this browser</span></div>
+
+  <details class="gh-panel" id="ghPanel">
+    <summary>Publish directly to GitHub (no download or reupload)</summary>
+    <div class="gh-grid">
+      <div class="gh-field"><label>Owner</label><input id="ghOwner" placeholder="your-account" spellcheck="false" autocomplete="off"></div>
+      <div class="gh-field"><label>Repository</label><input id="ghRepo" placeholder="calendar" spellcheck="false" autocomplete="off"></div>
+      <div class="gh-field"><label>Branch</label><input id="ghBranch" placeholder="main" spellcheck="false" autocomplete="off"></div>
+      <div class="gh-field" style="flex:1 1 160px;"><label>File path</label><input id="ghPath" placeholder="index.html" spellcheck="false" autocomplete="off"></div>
+      <div class="gh-field" style="flex:1 1 220px;"><label>Access token</label><input id="ghToken" type="password" placeholder="github_pat_..." spellcheck="false" autocomplete="off"></div>
+      <button class="btn" id="ghPublish">Publish</button>
+      <label class="gh-remember"><input type="checkbox" id="ghRemember"> Remember token until I close the browser</label>
+      <div id="ghStatus"></div>
+      <div class="gh-note"><b>Use a fine-grained token limited to this one repository, with Contents set to Read and write.</b> The token you type here stays in your browser and is sent only to GitHub. It is never written into the published file. Do not paste a token into the page's code or commit it anywhere, on a public repo that would hand write access to anyone who reads it.</div>
+    </div>
+  </details>
 
   <div class="banner" id="banner" hidden>
     <span>A newer published calendar is available.</span>
@@ -581,6 +608,67 @@
     STATE=clone(SEED); save(); render();
     document.getElementById('banner').hidden=true; setStatus('Loaded published version');
   });
+
+  // ---- Direct publish to GitHub ----
+  var GH_KEY="westhill-gh-config";
+  function ghCfgLoad(){ try{return JSON.parse(localStorage.getItem(GH_KEY))||{};}catch(e){return {};} }
+  function ghCfgSave(c){ try{localStorage.setItem(GH_KEY,JSON.stringify(c));}catch(e){} }
+  function ghStatus(msg,kind){
+    var el=document.getElementById('ghStatus'); if(!el) return;
+    el.textContent=msg;
+    el.style.color = kind==='err'?'var(--danger)':(kind==='ok'?'#2f7d32':'var(--muted)');
+  }
+  function utf8ToB64(str){
+    var bytes=new TextEncoder().encode(str), bin='';
+    for(var i=0;i<bytes.length;i++) bin+=String.fromCharCode(bytes[i]);
+    return btoa(bin);
+  }
+  function buildSelfHTML(){
+    STATE.version=(STATE.version||1)+1; save();
+    ['ghOwner','ghRepo','ghBranch','ghPath'].forEach(function(id){ var el=document.getElementById(id); if(el) el.setAttribute('value', el.value); });
+    var tk=document.getElementById('ghToken'); if(tk) tk.removeAttribute('value');
+    var rm=document.getElementById('ghRemember'); if(rm) rm.removeAttribute('checked');
+    document.getElementById('seed').textContent=JSON.stringify(STATE,null,2);
+    return '<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+  }
+  (function initGh(){
+    var c=ghCfgLoad();
+    var o=document.getElementById('ghOwner'); if(!o) return;
+    o.value=c.owner||''; document.getElementById('ghRepo').value=c.repo||'';
+    document.getElementById('ghBranch').value=c.branch||'main';
+    document.getElementById('ghPath').value=c.path||'index.html';
+    try{ var t=sessionStorage.getItem('westhill-gh-token'); if(t){ document.getElementById('ghToken').value=t; document.getElementById('ghRemember').checked=true; } }catch(e){}
+  })();
+  var pubBtn=document.getElementById('ghPublish');
+  if(pubBtn) pubBtn.addEventListener('click',function(){
+    var owner=document.getElementById('ghOwner').value.trim();
+    var repo=document.getElementById('ghRepo').value.trim();
+    var branch=document.getElementById('ghBranch').value.trim()||'main';
+    var path=document.getElementById('ghPath').value.trim();
+    var token=document.getElementById('ghToken').value.trim();
+    if(!owner||!repo||!path||!token){ ghStatus('Fill in owner, repository, file path, and token.','err'); return; }
+    ghCfgSave({owner:owner,repo:repo,branch:branch,path:path});
+    try{ if(document.getElementById('ghRemember').checked) sessionStorage.setItem('westhill-gh-token',token); else sessionStorage.removeItem('westhill-gh-token'); }catch(e){}
+    var api='https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path.split('/').map(encodeURIComponent).join('/');
+    var headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
+    ghStatus('Checking the current file on GitHub...');
+    fetch(api+'?ref='+encodeURIComponent(branch),{headers:headers})
+      .then(function(r){ if(r.status===404) return {sha:null}; if(r.status===401||r.status===403) throw new Error('Token rejected, or it lacks Contents write access to this repo.'); if(!r.ok) throw new Error('Could not read the repo (status '+r.status+'). Check owner, repository, and branch.'); return r.json(); })
+      .then(function(info){
+        var body={ message:'Update calendar '+STATE.startYear+'-'+(STATE.startYear+1)+' ('+new Date().toISOString().slice(0,10)+')', content:utf8ToB64(buildSelfHTML()), branch:branch };
+        if(info && info.sha) body.sha=info.sha;
+        ghStatus('Publishing to GitHub...');
+        return fetch(api,{method:'PUT',headers:headers,body:JSON.stringify(body)});
+      })
+      .then(function(r){
+        if(r.status===409){ ghStatus('Someone else updated the file since you loaded it. Reload the page, then publish again.','err'); return null; }
+        if(!r.ok) return r.json().then(function(j){ throw new Error(j.message||('Publish failed (status '+r.status+')')); });
+        return r.json();
+      })
+      .then(function(res){ if(res) ghStatus('Published to GitHub. The live page usually updates within a minute.','ok'); })
+      .catch(function(err){ ghStatus(err.message,'err'); });
+  });
+
 
   render();
   if(newerPublished){ var b=document.getElementById('banner'); if(b) b.hidden=false; }
